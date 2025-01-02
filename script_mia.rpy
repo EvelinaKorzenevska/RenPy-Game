@@ -75,3 +75,16 @@ label mia:
     
     show william pijama happy
     w "Yay! {w}I can't wait for tomorrow." 
+    #Sakrāto punktu paradīšana
+    $ girl = point_mia #Mainīgā point_mia vērtība tiek piešķirta mainīgajam girl
+    show screen earned_points
+    n "The points scored will be displayed on the right hand side"
+    play sound plus_point
+    #Palielina mainīgā point_mia vērtību par 1.
+    $ point_mia += 1
+    
+    #Atjaunina mainīgo girl vērtību
+    $ girl = point_mia
+    n "Congratulations! You've earned + 1 point for the invitation."
+    
+    

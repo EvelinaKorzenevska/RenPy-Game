@@ -126,3 +126,27 @@ default messages_list_sabrina = [
     ("s", "I think so."),
     ("w", "Great, see you tomorrow!")
 ]
+
+#Sakrāšanas punktu sistēma
+default maxpoint = 10
+default minpoint = 0
+
+default point_mia = 0
+default point_sabrina = 0
+
+default girl = 0
+
+#Attiecību ekrāna josla
+screen earned_points:
+    vbox:
+        align (0.95, 0.5)
+        #Sakrāto punktu paradīšana
+        text "{b}[girl]/[maxpoint]{/b}" size 25 color "#ff80b3" xalign 0.45
+        vbar:
+            xsize 200
+            ysize 400
+            #Vērtības piesaistīšana mainīgajam
+            value AnimatedValue(value=girl, range=maxpoint, delay=1.0) #1 sekundes aizkave
+            #Attēli pilnai un tukšai joslai
+            bottom_bar Frame("gui/bar/bottom1.png", 10, 10)
+            top_bar Frame("gui/bar/top1.png", 10, 10)
