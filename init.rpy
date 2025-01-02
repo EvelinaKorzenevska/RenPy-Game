@@ -359,3 +359,24 @@ screen shop_menu_drink:
         idle "images/shop/coffee.png"
         hover "images/shop/coffee_hover.png"
         action [SetVariable("coffee", coffee + 1), SetVariable("item", "coffee"), Jump("buy_item")]
+
+#Naudas pelnīšana, mazgājot grīdu
+default william_pos = 1000  #Sākum pozīcija pa x asi
+default time_passed = 0     #Laiks, kas pagājis kopš mijiedarbības sākuma
+
+screen william_move():
+    add "images/icons/william_with_mop.png" xpos william_pos ypos 150
+
+#Ekrāns ar pārvietošanas pogām
+screen move_button():
+    imagebutton:
+        idle "images/icons/left.png"
+        xpos 706
+        ypos 10
+        action SetVariable("william_pos", william_pos - 50)
+
+    imagebutton:
+        idle "images/icons/right.png"
+        xpos 1009
+        ypos 10
+        action SetVariable("william_pos", william_pos + 50)

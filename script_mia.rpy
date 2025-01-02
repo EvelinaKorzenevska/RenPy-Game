@@ -747,6 +747,50 @@ label home:
         show screen map_button
         w "I don't have to go home right now."
     
-    return    
+    return
+
+label candy_shop:
+    hide screen map_button
+    if next_location == "candy_shop":
+        $ candy_shop_visited += 1
+        if candy_shop_visited == 1:
+            scene bg candy shop day with fade
+            show william smile light at right1 with dissolve
+            w "So, where is my mother?"
+            show mother work smile light at left1 with moveinleft
+            mum "Hi, [char_name]! {w}What are you doing here?"
+            w "Hi, mum. I need to earn some money. {w}Maybe, I can do something at your work to earn."
+            mum "Hmm, You can mop the floors of the whole shop."
+            w "Nice!"
+            hide mother with moveoutleft
+            w "I'll go get a mop and get started."
+            hide william with moveoutright
+            scene bg candy shop day
+            "Move the character left and right for 10 seconds to mop the floors."
+            #Mazgāt grīdu
+            while time_passed < 10:  #10 sekunžu laika ierobežojums
+                show screen william_move()
+                show screen move_button()
+                $ renpy.pause(0.1)  #0,1 sekundes pauze
+                $ time_passed += 0.1  #Pagājušā laika palielināšana
+
+            hide screen william_move
+            hide screen move_button
+            show william smile light at right1
+            show mother work smile light at left with moveinleft
+            w "I'm all done."
+            mum "All right, here's your $20."
+            $ money += 20
+            play sound money
+            n "You have earned $20."
+            show william happy light
+            w "Thank you, Mum! {w}See you at home."
+            mum "Bye, bye."
+            hide mother with moveoutleft
+            show screen map_button
+            $ current_location = "candy_shop"
+            $ next_location = "home"
+            show william sad
+            n "You're tired, it's time to go home."    
     
     
