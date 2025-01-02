@@ -102,5 +102,31 @@ label mia:
     show william confused
     w "I've got to think of something to talk about. {w}But we've been texting pretty well, so it should be easy."
     w "Okay, just don't be shy and everything will be fine."
+    show screen map_button
+    
+    #Noslēpt māju mapē, jo spēlētājs atrodas mājā
+    $ current_location = "home"
+    
+    #Jādodas uz parku
+    $ next_location = "park"
+    n "To go to the meeting, open the map and find the park."
+    
+    return
+    
+
+label park:
+    stop music fadeout 1
+    hide screen map_button
+    play music park
+    if next_location == "park":
+        scene bg park day with fade
+        show william smile light at right1 with moveinright
+        show mia smile light at left2 with moveinleft
+        
+        #Sakrāto punktu paradīšana
+        $ girl = point_mia
+        show screen earned_points
+        w "Hi, Mia!"
+        m "Hi, [char_name]!"
     
     
