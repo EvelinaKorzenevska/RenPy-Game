@@ -1134,6 +1134,677 @@ label gallery_ticket:
     n "You spent $20 for 2 tickets."
     
     return
+elif candy_shop_visited == 2:
+            scene bg candy shop day with fade
+            show mother work smile light at left1 with dissolve
+            show william smile light at right1 with moveinright
+            w "Hi, mum."
+            mum "Hi, [char_name]! {w}Out of money again?"
+            show william sad light
+            w "Yes. I really need to make some money."
+            mum "All right. {w}You need help sorting out the goods. There's a lot of people today, we can't keep up."
+            show william happy
+            w "Okey."
+            hide william with moveoutright
+            "...[char_name] is sorting out the goods..."
+            show william smile light with moveinright
+            w "I'm done!"
+            m "Thank you. Take your $50."
+            $ money += 50
+            play sound money
+            n "You have earned $50."
+            show william happy light
+            w "Thanks, Mum!"
+            mum "Bye, bye."
+            hide mother with moveoutleft
+            if invitation_choice == "invite_gallery2":
+                w "Now I can go to buy a tickets"
+                show screen map_button
+                $ current_location = "candy_shop"
+                $ next_location = "art_gallery"
+                n "Go to the art gallery."
+            elif invitation_choice == "invite_cinema2":
+                w "Now I can go to buy a tickets"
+                show screen map_button
+                $ current_location = "candy_shop"
+                $ next_location = "cinema"
+                n "Go to the cinema."
+            elif invitation_choice == "invite_walk":
+                w "Now I can go home."
+                show screen map_button
+                $ current_location = "candy_shop"
+                $ next_location = "home"
+                n "Go home."
+
+    else:
+        show screen map_button
+        w "I don't have to go to candy shop right now."
+        
+    return
+
+
+label school:
+    stop music fadeout 1
+    hide screen map_button
+    if next_location == "school":
+        $ school_visited += 1
+        if school_visited == 1:
+            play music courtyard
+            if invitation_choice == "invite_cinema":
+                scene bg courtyard day with fade
+                show william uniform smile with dissolve
+                w "I still have time before class starts, I'll go find Mia."
+                hide william with moveoutleft
+                stop music fadeout 1
+                scene bg corridor day with fade
+                play music corridor
+                show mia uniform smile light at left1 with dissolve
+                show william uniform smile light with moveinright
+                w "Hey, I've been looking for you."
+                m "Hi, here I am."
+                w "I bought cinema tickets yesterday, maybe we can go?"
+                show mia uniform happy light
+                m "Cool, what kind of film?"
+                if ticket_choise == "buy_horror":
+                    w "I bought tickets to a horror film at 5pm."
+                    show mia uniform sad light
+                    m "I wish you'd remembered that I don't like horror films."
+                    play sound minus_point
+                    $ point_mia -= 1
+                    $ girl = point_mia
+                    n "Mia don't like horror films -1 point"
+                    show william uniform suprized light
+                    w "Omg, I completely forgot."
+                    m "All right, if I've already bought it, I'll go."
+                    show william uniform confused2 light
+                    w "I'm so sorry."
+                    m "Don't worry."
+                elif ticket_choise == "buy_scifi":
+                    w "I bought tickets to a sci-fi film."
+                    show mia uniform smile light
+                    m "Okay, what time film start?"
+                    w "At 5pm"
+                    m "All right, I agree."
+                    show william uniform happy light
+                    w "Nice."
+                elif ticket_choise == "buy_melodrama":
+                    w "I bought tickets to a melodrama film."
+                    m "You remembered that I like melodramas?"
+                    show william uniform happy light
+                    w "Yes"
+                    m "Unexpected and cool, of course we'll go!"
+                    play sound plus_point
+                    $ point_mia += 2
+                    $ girl = point_mia
+                    n "You surprised mia +2 points."
+                    show mia uniform smile light
+                    w "Nice! Film starts at 5pm, see you there."
+                    m "Okey."
+                
+            elif invitation_choice == "invite_gallery":
+                scene bg courtyard day with fade
+                show william uniform smile with dissolve
+                w "I still have time before class starts, I'll go find Mia."
+                hide william with moveoutleft
+                stop music fadeout 1
+                scene bg corridor day with fade
+                play music corridor
+                show mia uniform smile light at left1 with dissolve
+                show william uniform smile light with moveinright
+                w "Hey, I've been looking for you."
+                m "Hi, here I am."
+                w "I bought tickets to the Art Gallery, maybe we can go?"
+                show mia uniform happy light
+                m "Wow, when we go?"
+                w "Today at 5p.m."
+                m "Great, that's so unexpected of you."
+                show william uniform happy light
+                w "You were just saying you wanted to go, so I thought I'd diversify our outings."
+                play sound plus_point
+                $ point_mia += 1
+                $ girl = point_mia
+                n "Mia is glad you decided to take her to the gallery +1 point."
+                show mia uniform smile light
+                m "All right, let's go then."
+                show william uniform smile light
+                w "Nice!"  
+                
+            m "Now we need to go to the class, lesson will starts soon."
+            w "Let's go."
+            hide mia with moveoutright
+            hide william with moveoutright
+            stop music fadeout 1
+            scene bg classroom day with fade
+            play music classroom
+            show teacher smile
+            t "Hi, everyone! Today you were supposed to learn a poem and tell it to us in class today."
+            t "I can't wait to hear what you guys have to say."
+            w "Oh, my God, I completely forgot to learn the poem. {w}I hope I don't get called in today."
+            t "Who wants to start?"
+            m "Can I?"
+            t "Yes, Mia. Come out here."
+            show teacher smile light at left1 with moveinleft
+            show mia uniform smile light with moveinleft
+            n "...Mia tells a poem..."
+            show teacher smile light
+            t "That was excellent as always, sit 10."
+            show mia uniform happy light
+            m "Thanks."
+            hide mia with moveoutleft
+            t "We'll see who goes next."
+            t "Oh, [char_name] hasn't been to the blackboard in a while. Let's hear for him."
+            show william uniform smile light with moveinleft
+            menu:
+                "What to do?"
+                    
+                "Say that you're not ready":
+                    call not_ready from _call_not_ready
+                    
+                "Devise your own poem":
+                    call devise_poem from _call_devise_poem
+                
+            show screen map_button
+            $ current_location = "school"
+            $ next_location = "home"
+            n "Lessons is over, go home."
+        
+        elif school_visited == 2:
+            play music classroom
+            scene bg classroom day with fade
+            show teacher smile with dissolve
+            n "...Teacher introduces a new topic..."
+            n "[char_name] is not listening, he's more concerned with where to take Mia next."
+            w "And where do I invite Mia now?"
+            if invitation_choice == "invite_cinema":
+                menu:
+                    "Where invite Mia next?"
+                        
+                    "To the art gallery":
+                        $ invitation_choice = "invite_gallery2"
+                        jump invite_gallery2
+                        
+                    "For a walk around the city":
+                        $ invitation_choice = "invite_walk"
+                        jump walk
             
+            elif invitation_choice == "invite_gallery":
+                menu:
+                    "Where invite Mia next?"
+                        
+                    "To the cinema":
+                        $ invitation_choice = "invite_cinema2"
+                        jump invite_cinema2
+                        
+                    "For a walk around the city":
+                        $ invitation_choice = "invite_walk"
+                        jump walk
+
+        elif school_visited == 3:
+            play music classroom
+            scene bg classroom day with fade
+            show teacher smile with dissolve
+            t "There are only [days_left] days left until you officially invite your significant other to prom!"
+            t "Hopefully, each of you already has someone in mind that you want to share this special evening with."
+            t "If you haven't already, try to, there's not much time left."
+            stop music fadeout 1
+            scene bg corridor day with fade
+            play music corridor
+            show mia uniform smile light at left1 with dissolve
+            show william uniform smile light with moveinright
+            if invitation_choice == "invite_gallery2":
+                w "Hey, I bought tickets. {w}Is it still on?"
+                show mia uniform happy light
+                m "Hi, nice. {w}Yes, of course."
+                play sound plus_point
+                $ point_mia += 1
+                $ girl = point_mia
+                n "+1 point to invite Mia to the art gallery."
+                show william uniform happy light
+                w "I'm glad."
+                m "Me too."
+                w "So, let's go."
+                m "Let's go. {w}But we'll stop on the way to change out of our school uniforms."
+                w "Okey."
+                show screen map_button
+                $ current_location = "school"
+                $ next_location = "art_gallery"
+                n "Go with Mia to the art gallery."
+            elif invitation_choice == "invite_cinema2":
+                w "Hey, I bought tickets. {w}Is it still on?"
+                show mia uniform happy light
+                m "Hi, nice. {w}Yes, of course."
+                play sound plus_point
+                $ point_mia += 1
+                $ girl = point_mia
+                n "+1 point to invite Mia to the cinema."
+                show william uniform happy light
+                w "I'm glad."
+                m "Me too. What kind of film?"
+                if ticket_choise == "buy_horror":
+                    w "I bought tickets to a horror film."
+                    show mia uniform sad light
+                    m "I wish you'd remembered that I don't like horror films."
+                    play sound minus_point
+                    $ point_mia -= 1
+                    $ girl = point_mia
+                    n "Mia don't like horror films -1 point"
+                    show william uniform suprized light
+                    w "Omg, I completely forgot."
+                    m "All right, if I've already bought it, I'll go."
+                    show william uniform confused2 light
+                    w "I'm so sorry."
+                    m "Don't worry."
+                elif ticket_choise == "buy_scifi":
+                    w "I bought tickets to a sci-fi film."
+                    show mia uniform smile light
+                    m "Okay."
+                    show william uniform happy light
+                    w "Nice."
+                elif ticket_choise == "buy_melodrama":
+                    w "I bought tickets to a melodrama film."
+                    m "You remembered that I like melodramas?"
+                    show william uniform happy light
+                    w "Yes"
+                    m "Unexpected and cool!"
+                    play sound plus_point
+                    $ point_mia += 2
+                    $ girl = point_mia
+                    n "You surprised mia +2 points."
+                    show mia uniform smile light
+                w "So, Let's go."
+                m "Let's go. {w}But we'll stop on the way to change out of our school uniforms."
+                w "Okey."
+                show screen map_button
+                $ current_location = "school"
+                $ next_location = "cinema"
+                n "Go with Mia to the cinema."
+            elif invitation_choice == "invite_walk":
+                w "Hey, are we going for a walk today?"
+                m "Hi. Yes, of course."
+                w "I'm glad."
+                m "Me too."
+                w "So, let's go."
+                m "Let's go."
+                show screen map_button
+                $ current_location = "school"
+                $ next_location = "city_centre"
+                n "Go with Mia to the city centre."
+                
+        elif school_visited == 4:
+            play music courtyard
+            scene bg courtyard2 day with fade
+            show mia uniform smile light with dissolve
+            show william uniform smile light at right1 with moveinright
+            w "Hi, how are you?"
+            m "Hi! Good, you?"
+            w "Good too. {w}Today is the day to tell the teacher who's going to prom with who."
+            show william uniform confused light
+            w "I've been trying to get to know you better, so I have a question for you."
+            w "Will you go to the prom with me?"
+            if point_mia >=10:
+                m "Yes, you tried really hard to surprise me every time, and the most important thing is that you remembered everything I said, which means you are really interested in me."
+                m "I've become interested in you, too, these days."
+                show mia uniform happy light
+                m "So my answer is yes, I'll go to the prom with you!"
+                show william uniform happy light
+                w "Wow, I'm really excited."
+                play sound victory
+                n "Congratulations! You made it through the game."
+                
+                #Sasniedzot šo nobeigumu, galerijā atvēras poga
+                window hide
+                scene poster_mia with fade
+                $ persistent.end_mia = True
+                n "The end - [char_name] went to the prom with Mia."
+                
+            else:
+                m "I noticed how you tried to surprise me, but there were moments that I didn't understand and that frustrated me."
+                show mia uniform sad light
+                m "And I get the impression that you don't care who you go with as long as you go and don't look like an outcast."
+                m "So unfortunately my answer is no, I'm not going to the prom with you."
+                show william uniform sad light
+                w "Very unfortunate, but thanks for the chance."
+                play sound loss
+                n "You couldn't get through the game, try again next time."
+                
+                window hide
+                scene poster_alone with fade
+                $ persistent.end_alone = True
+                n "The end - [char_name] went to the prom alone."
+                
+    else:
+        show screen map_button
+        w "I don't have to go to school right now."
+        
+    return
+
+
+label city_centre:
+    stop music fadeout 1
+    hide screen map_button
+    play music city_center
+    if next_location == "city_centre":
+        scene bg city centre day with fade
+        show mia uniform smile light with dissolve
+        show william uniform smile light at right1 with dissolve
+        w "It's nice to get out for a walk. You said you like to go out after school, right?"
+        show mia uniform happy light
+        m "Yes! I've been thinking about it all day."
+        w "We have a big and beautiful city after all."
+        show mia uniform smile light
+        m "I agree, and lots of different places to have a great time."
+        w "Listen, do you like shopping?"
+        m "Yeah, we usually go with my mum for the day. {w}We like to go out and look at things for the house and clothes for ourselves."
+        show william uniform happy light
+        w "That's a great relationship you have with your mum. {w}Do you want to go to the shopping centre?"
+        m "Great idea! Let's go."
+        hide william with moveoutright
+        hide mia with moveoutright
+        stop music fadeout 1
+        scene bg shopping center day with fade
+        play music shopping_center
+        show mia uniform smile light at left1 with moveinright
+        show william uniform smile light with moveinright
+        w "Here we are."
+        menu:
+            "Maybe give a little gift to Mia?"
+                        
+            "Buy a book":
+                call buy_book from _call_buy_book
+                        
+            "Buy flowers":
+                call buy_flowers from _call_buy_flowers
+            
+            "Don't buy anything":
+                call dont_buy from _call_dont_buy
+                
+        scene bg shopping center night with fade
+        show mia uniform smile light at left1
+        show william uniform smile light
+        m "Thank you for the walking, but I need to go home."
+        w "Okey, thank you too. See you at school."
+        m "Bye, bye."
+        hide mia with moveoutleft
+        show screen map_button
+        $ current_location = "city_centre"
+        $ next_location = "home"
+        n "Go home"
+
+    else:
+        show screen map_button
+        w "I don't have to go to the city centre right now."
+
+    return
+
+
+label buy_book:
+    w "I've got an idea, do you mind if I take a look in a shop."
+    m "Sure, just tell me which one. What are you up to?"
+    show william uniform happy light
+    w "And that's something you'll find out later."
+    hide william with moveoutleft
+    scene bg book store day with fade
+    show william uniform smile light with moveinright
+    w "On the walk, mia was saying her favourite book was {i}Romeo and Juliet{/i}, I need to find that book."
+    show salesperson form light at left1 with moveinleft
+    sal "Hello, can I help you?"
+    w "Hello, I need a book {i}Romeo and Juliet{/i}."
+    sal "Yes, we have that book. {w}One second."
+    hide salesperson with moveoutleft
+    show salesperson form light at left1 with moveinleft
+    show book at Transform(xpos=255, ypos=714)
+    sal "Here it is."
+    w "Can I have it?"
+    sal "Yes, of course! {w}It costs $10."
+    w "Good."
+    $ money -= 10
+    play sound money
+    n "You spent $10."
+    show book at Transform(xpos=847, ypos=685)
+    sal "Thanks for buying. Have a nice day!"
+    w "Have a nice day too."
+    hide book
+    hide william with moveoutright
+    scene bg shopping center day with fade
+    show mia uniform smile light at left1 with dissolve
+    show william uniform smile light with moveinleft
+    show book at Transform(xpos=847, ypos=685)
+    w "This is for you!"
+    show book at Transform(xpos=600, ypos=700)
+    show mia uniform happy light
+    m "Omg, this is my favourite book! Thank you very much!!!"
+    play sound plus_point
+    $ point_mia += 2
+    $ girl = point_mia
+    n "Mia's happy you bought her her favourite book +2 points."
+    show william uniform happy light
+    w "I'm glad you liked it."
+    
+    return
+    
+label buy_flowers:
+    w "I've got an idea, do you mind if I take a look in a shop."
+    m "Sure, just tell me which one. What are you up to?"
+    show william uniform happy light
+    w "And that's something you'll find out later."
+    hide william with moveoutleft
+    scene bg flower shop day with fade
+    show william uniform smile light with moveinright
+    w "I didn't ask what flowers Mia likes, I'll have to consult the seller."
+    show salesperson form light at left1 with moveinleft
+    sal "Hello, can I help you?"
+    w "Hello, I need a flowers."
+    sal "What kind of flowers you need?"
+    w "I don't know, I need something delicate and beautiful."
+    show flowers at Transform(xpos=232, ypos=654)
+    sal "I can suggest these, they're very delicate."
+    w "Nice. I take them."
+    sal "It costs $10."
+    $ money -= 10
+    play sound money
+    n "You spent $10."
+    show flowers at Transform(xpos=838, ypos=574)
+    w "Thank you!"
+    hide flowers
+    hide william with moveoutright
+    scene bg shopping center day with fade
+    show mia uniform smile light at left1 with dissolve
+    show william uniform smile light with moveinleft
+    show flowers at Transform(xpos=838, ypos=574)
+    w "This is for you!"
+    show mia uniform happy light
+    show flowers at Transform(xpos=535, ypos=620)
+    m "Omg, so beautiful. Thank you very much!!!"
+    play sound plus_point
+    $ point_mia += 2
+    $ girl = point_mia
+    n "Mia's happy you bought flowers for her +2 points."
+    show william uniform happy light
+    w "I'm glad you liked it."
+    
+    return
+
+
+label dont_buy:
+    n "...[char_name] with Mia are out shopping...."
+    
+    return
+    
+
+label invite_gallery2:
+    w "I take her to the Art Gallery. Mia said, that she wanted to go there."
+    w "I need to buy a tickets. {w}I can do it after school."
+    t "Thank you class. That's all for today."
+    w "Nice, lessons is over."
+    stop music fadeout 1
+    scene bg corridor day with fade
+    play music corridor
+    show william uniform smile with dissolve
+    w "I need to find Mia, to invite her to the gallery."
+    hide william with moveoutleft
+    stop music fadeout 1
+    scene bg courtyard day with fade
+    play music courtyard
+    show mia uniform smile light at left1 with dissolve
+    show william uniform smile light with moveinleft
+    w "Hi, Mia!"
+    m "Hi, [char_name]!"
+    w "Maybe you want to go with me to the art gallery?"
+    show mia uniform happy light
+    m "Wow, yes, I wanted. When?"
+    w "Tomorrow at 5pm."
+    m "Nice, let's go."
+    show william uniform happy light
+    w "Cool, see you tomorrow then."
+    m "See you tomorrow."
+    hide mia with moveoutright
+    w "I'm happy. {w}Now I need to buy a tickets."
+    show william uniform suprized
+    w "Omg, I don't have enough money to take Mia to a art gallery."
+    w "I have to go to my mum's to earn money. {w}But I have to change first."
+    show screen map_button
+    $ current_location = "school"
+    $ next_location = "home"
+    n "You need to go home, to change clothes."
+     
+    return
+
+
+label invite_cinema2:
+    w "I take her to the cinema."
+    w "I need to buy a tickets. {w}I can do it after school."
+    t "Thank you class. That's all for today."
+    w "Nice, lessons is over."
+    stop music fadeout 1
+    scene bg corridor day with fade
+    play music corridor
+    show william uniform smile with dissolve
+    w "I need to find Mia, to invite her to the cinema."
+    hide william with moveoutleft
+    stop music fadeout 1
+    scene bg courtyard day with fade
+    play music courtyard
+    show mia uniform smile light at left1 with dissolve
+    show william uniform smile light with moveinleft
+    w "Hi, Mia!"
+    m "Hi, [char_name]!"
+    w "Maybe you want to go with me to the cinema?"
+    show mia uniform happy light
+    m "Wow, yes, I wanted. When?"
+    w "Tomorrow."
+    m "Nice, let's go."
+    show william uniform happy light
+    w "Cool, see you tomorrow then."
+    m "See you tomorrow."
+    hide mia with moveoutright
+    w "I'm happy. {w}Now I need to buy a tickets."
+    show william uniform suprized
+    w "Omg, I don't have enough money to take Mia to the cinema."
+    w "I have to go to my mum's to earn money. {w}But I have to change clothes first."
+    show screen map_button
+    $ current_location = "school"
+    $ next_location = "home"
+    n "You need to go home, to change clothes."
+
+    return
+
+
+label walk:
+    w "I invite her to the walk around the city. Mia said, that she like to walking."
+    w "I can invite Mia after school."
+    t "Thak you class. That's all for today."
+    w "Nice, lessons is over."
+    stop music fadeout 1
+    scene bg corridor day with fade
+    play music corridor
+    show william uniform smile with dissolve
+    w "I need to find Mia, to invite her."
+    hide william with moveoutleft
+    stop music fadeout 1
+    scene bg courtyard day with fade
+    play music courtyard
+    show mia uniform smile light at left1 with dissolve
+    show william uniform smile light with moveinleft
+    w "Hi, Mia!"
+    m "Hi, [char_name]!"
+    w "Maybe you want to go with me to the walk around the city?"
+    show mia uniform happy light
+    m "Oh, I wanted. When?"
+    w "Let's go tomorrow at 5pm."
+    m "Nice, let's go."
+    show william uniform happy light
+    w "Cool, see you tomorrow then."
+    m "See you tomorrow."
+    hide mia with moveoutright
+    w "I'm happy. {w}Now I can go home."
+    show screen map_button
+    $ current_location = "school"
+    $ next_location = "home"
+    n "Go home"
+
+    return
+
+
+label not_ready:
+    w "Soryy, I'm not ready."
+    show teacher sad light
+    t "Very bad, [char_name]. Sit down 2."
+    hide william with moveoutleft
+    t "Lesson is over, thank you all."
+    stop music fadeout 1
+    scene bg corridor day with fade
+    play music corridor
+    show mia uniform smile light at left1 with dissolve
+    show william uniform smile light with moveinright
+    m "How could you be so unprepared?"
+    show william uniform sad light
+    w "I completely forgot about this assignment."
+    m "Well, it happens. You'll have to retake your 2 anyway."
+    w "I know."
+    m "I'll give you advance notice of important assignments."
+    show william uniform smile light
+    w "Good idea!{w}I'll see you tonight, then."
+    m "See you."
+    hide mia with moveoutleft
+    
+    return
+
+    
+label devise_poem:
+    show william uniform confused light
+    w "Get started?"
+    t "Yes."
+    show william uniform smile light
+    w "{i}So… uh, there’s this girl in class, {w}She’s kinda… bright, like morning sun. {w}When she walks in, I… well, I guess, {w}I look her way, and it’s just… fun.{/i}"
+    w "{i}Her eyes are like… um, stars? Or maybe, {w}Like sunrise, shining soft and low. {w}No, wait, they’re more like… something warm… {w}Like light, but… I don’t really know.{/i}"
+    w "{i}And, um, her hair, it’s kinda… windy. {w}Or… shining… like the evening glow? {w}I’m messing up, but anyway, {w}I think she knows… or doesn’t know.{/i}"
+    t "A good poem by an aspiring author [char_name]."
+    t "All right, sit down. I'll give you 5 for the idea."
+    show william uniform happy light
+    w "Thank, teacher!"
+    hide william with moveoutleft
+    t "Lesson is over, thank you all."
+    stop music fadeout 1
+    scene bg corridor day with fade
+    play music corridor
+    show mia uniform smile light at left1 with dissolve
+    show william uniform smile light with moveinright
+    m "You should be a writer with poems like that."
+    show william uniform confused light
+    w "I had to do something, so I improvised."
+    show mia uniform happy light
+    m "I liked it."
+    w "It was addressed to you."
+    m "I'm pleased."
+    play sound plus_point
+    $ point_mia += 1
+    $ girl = point_mia
+    n "Mia was very pleased, that the poem was addressed to her +1 point."
+    show william uniform smile light
+    w "I'm glad. {w}I'll see you tonight, then."
+    m "See you."
+    hide mia with moveoutleft
+
+    return            
     
     
