@@ -150,3 +150,8 @@ screen earned_points:
             #Attēli pilnai un tukšai joslai
             bottom_bar Frame("gui/bar/bottom1.png", 10, 10)
             top_bar Frame("gui/bar/top1.png", 10, 10)
+
+#Dienu skaitītājs
+default days_left = 7
+screen days_left_display:
+    text "{b}Days left: [days_left]{/b}" xpos 0.89 ypos 0.01 color "#FFFFFF" size 30

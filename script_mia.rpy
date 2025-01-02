@@ -86,5 +86,21 @@ label mia:
     #Atjaunina mainīgo girl vērtību
     $ girl = point_mia
     n "Congratulations! You've earned + 1 point for the invitation."
+    #Jauna diena
+    $ days_left -= 1
+    
+    scene bg male bedroom day with fade
+    show william pijama smile with dissolve
+    w "Oh, morning... Well, the day has finally arrived!"
+    show william pijama confused
+    w "Today is the meeting with Mia, and I think I'm a little nervous. {w}But why worry?"
+    show william pijama smile 
+    w "It's gonna be great. It's all about being yourself! {w}I've got to go get ready."
+    hide william with moveoutright
+    show william smile with moveinright
+    w "I'm ready!"
+    show william confused
+    w "I've got to think of something to talk about. {w}But we've been texting pretty well, so it should be easy."
+    w "Okay, just don't be shy and everything will be fine."
     
     
