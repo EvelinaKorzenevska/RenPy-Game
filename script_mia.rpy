@@ -791,6 +791,349 @@ label candy_shop:
             $ current_location = "candy_shop"
             $ next_location = "home"
             show william sad
-            n "You're tired, it's time to go home."    
+            n "You're tired, it's time to go home."
+label invite_cinema:
+    w "I take her to the cinema to see some interesting film!"
+    show william smile
+    w "I need to buy a tickets. {w}I can do it now."
+    show screen map_button
+    $ current_location = "home"
+    $ next_location = "cinema"
+    n "Go to the cinema, to buy a tickets."
+    
+    return
+
+
+label invite_gallery:
+    w "I take her to the Art Gallery. Mia said, that she wanted to go there."
+    show william smile
+    w "I need to buy a tickets. {w}I can do it now."
+    show screen map_button
+    $ current_location = "home"
+    $ next_location = "art_gallery"
+    n "Go to the art gallery, to buy a tickets."
+    
+    return   
+label cinema:
+    hide screen map_button
+    if next_location == "cinema":
+        $ cinema_visited += 1
+        if cinema_visited == 1:
+            scene bg cinema entrance day with fade
+            show william smile with dissolve
+            n "Pick which film you're going to see."
+            call screen buy_ticket
+            show william happy
+            w "All right, tickets are purchased."
+            w "I'll give the ticket to Mia at school tomorrow."
+            show screen map_button
+            $ current_location = "cinema"
+            $ next_location = "home"
+            show william smile
+            w "So, it's too late, i need to go home."
+        
+        elif cinema_visited == 2:
+            if invitation_choice == "invite_cinema":
+                scene bg cinema entrance day with fade
+                show william smile light with dissolve
+                w "Mia's not here yet. Maybe go get some popcorn while I wait?"
+                menu:
+                    "Buy popcorn?"
+                    
+                    "Buy":
+                        call buy_popcorn from _call_buy_popcorn
+                    
+                    "Not buy":
+                        call not_buy_popcorn from _call_not_buy_popcorn
+            elif invitation_choice == "invite_cinema2":  
+                scene bg cinema entrance day with fade
+                show william smile light with dissolve
+                show mia smile light at left1 with dissolve
+                w "Here we are."
+                menu:
+                    "Offer popcorn?"
+                    
+                    "Buy":
+                        call buy_popcorn1 from _call_buy_popcorn1
+                    
+                    "Not buy":
+                        call not_buy_popcorn1 from _call_not_buy_popcorn1
+
+            scene bg cinema with fade
+            show william smile light with dissolve
+            if ticket_choise == "buy_horror":
+                show mia smile light at left1 with dissolve
+                w "The film was good and not so scary."
+                m "I agree, but there were a few moments that scared me."
+                show william happy light
+                w "But it was fun. I'm glad you enjoyed it."
+                m "Yeah, I thought it would be worse."
+                m "Thanks for the invitations, I had a great time, but now I have to go home."
+            elif ticket_choise == "buy_scifi":
+                show mia smile light at left1 with dissolve
+                w "The film was good."
+                m "I liked it too."
+                show william happy light
+                w "I'm glad you enjoyed it."
+                m "Yeah. Thanks for the invitations, I had a great time, but now I have to go home."
+            elif ticket_choise == "buy_melodrama":
+                show mia happy light at left1 with dissolve
+                m "It was the best film I've ever seen."
+                show william happy light
+                w "I don't know much about melodrama, but I'm glad you enjoyed it."
+                m "Thanks for the invitations, I had a great time, but now I have to go home."
+            menu:
+                "Offer to walk Mia home?"
+                
+                "Yes":
+                    call yes from _call_yes
+                
+                "No":
+                    call no from _call_no
+
+
+            w "Okey, see you tommorow then."
+            m "Bye."
+            hide mia with moveoutleft
+            show screen map_button
+            $ current_location = "cinema"
+            $ next_location = "home"
+            n "Go home."
+            
+    else:
+        show screen map_button
+        w "I don't have to go to the cinema right now."
+        
+    return
+
+
+label yes:
+    show william smile light
+    w "It's too late. {w} Maybe walk you home?"
+    show mia smile light
+    m "Thanks, but my dad's gonna pick me up."
+    $ point_mia += 1
+    $ girl = point_mia
+    play sound plus_point
+    n "+1 point for wanting to walk Mia home."
+    
+    return
+
+    
+label no:
+    show william smile light
+    show mia smile light
+    
+    return
+
+
+label buy_popcorn:
+    w "Popcorn costs $5"
+    if money > 5:
+        $ money -= 5
+        play sound money
+        n "-$5 for popcorn."
+        show popcorn at Transform(xpos=838, ypos=624)
+        show mia smile light at left1 with moveinleft
+        m "Hi."
+        w "Hi, I bought popcorn for you."
+        show mia happy light
+        m "Thank you!"
+        play sound plus_point
+        $ point_mia += 1
+        $ girl = point_mia
+        n "Mia is happy +1 point"
+        show william happy light
+        w "So, let's go watch a film."
+        m "Let's go."
+        
+    else:
+        n "You don't have enough money to buy the popcorn."
+        show william sad
+        w "Damn, I don't have enough money"
+        show william smile light
+        w "All right, we'll go without popcorn."
+        show mia smile light at left1 with moveinleft
+        m "Hi."
+        show william happy light
+        w "Hi, let's go watch a film."
+        m "Let's go."
+
+    return
+    
+    
+label not_buy_popcorn:
+    show mia smile light at left1 with moveinleft
+    m "Hi."
+    show william happy light
+    w "Hi, let's go watch a film."
+    m "Let's go."
+    
+    return
+
+
+label buy_popcorn1:
+    w "Maybe you want popcorn?"
+    m "Yes."
+    w "Okey."
+    if money > 5:
+        $ money -= 5
+        play sound money
+        n "-$5 for popcorn."
+        show popcorn at Transform(xpos=838, ypos=624)
+        m "This is for you"
+        show mia happy light
+        m "Thank you!"
+        play sound plus_point
+        $ point_mia += 1
+        $ girl = point_mia
+        n "Mia is happy +1 point"
+        show william happy light
+        w "So, let's go watch a film."
+        m "Let's go."
+        
+    else:
+        n "You don't have enough money to buy the popcorn."
+        show william sad
+        w "Damn, Sorry, I don't have enough money"
+        show mia smile light at left1 with moveinleft
+        m "Don't worry, no big deal."
+        show william smile light
+        w "That's good."
+        w "So, let's go watch a film."
+        m "Let's go."
+
+    return
+    
+
+label not_buy_popcorn2:
+    w "So, let's go watch a film."
+    m "Let's go."
+    
+    return
+
+
+label buy_horror:
+    $ ticket_choise = "buy_horror"
+    n "You bought two tickets to a horror film."
+    $ money -= 30
+    play sound money
+    n "You spent $30 for 2 tickets."
+    
+    return
+
+    
+label buy_scifi:
+    $ ticket_choise = "buy_scifi"
+    n "You bought two tickets to a sci-fi film."
+    $ money -= 30
+    play sound money
+    n "You spent $30 for 2 tickets."
+    
+    return
+
+    
+label buy_melodrama:
+    $ ticket_choise = "buy_melodrama"
+    n "You bought two tickets to a melodrama film."
+    $ money -= 30
+    play sound money
+    n "You spent $30 for 2 tickets."
+    
+    return
+
+    
+label art_gallery:
+    hide screen map_button
+    if next_location == "art_gallery":
+        $ gallery_visited += 1
+        if gallery_visited == 1:
+            scene bg gallery entrance day with fade
+            show william smile with dissolve
+            n "Click on the tickets to buy them."
+            call screen buy_gallery_ticket
+            show william happy
+            w "All right, tickets are purchased."
+            w "I'll give the ticket to Mia at school tomorrow."
+            scene bg gallery entrance night
+            show screen map_button
+            $ current_location = "art_gallery"
+            $ next_location = "home"
+            show william smile
+            w "So, it's too late, i need to go home."
+        elif gallery_visited == 2:
+            scene bg gallery entrance day with fade
+            show william smile light with dissolve
+            show mia smile light at left1 with moveinright
+            w "Hi. We can go inside."
+            m "Hi. Let's go."
+            hide william with moveoutleft
+            hide mia with moveoutleft
+            scene bg gallery day with fade
+            show william smile light with moveinright
+            show mia smile light at left1 with moveinright
+            w "Well, here we are. {w}First time in a gallery, to be honest. It's just like going to the cinema."
+            show mia happy light
+            m "First time? Then I promise you'll love it. {w}The important thing is to just relax and watch it the way you want to."
+            show william happy light
+            w "Okay, I'll keep that in mind!"
+            show william happy light at right1 with move
+            show mia happy light at left2 with move
+            w "Okay, so first thought... {w}I wonder... what's going on here?"
+            show mia smile light
+            m "I think the artist was trying to convey some kind of story."
+            m "Look how it's shifted to the background, in the shadows. It's like we haven't been given the full details."
+            show william smile light
+            w "You mean like a detective story? You have to guess?"
+            show mia happy light
+            m "Exactly! Art often leaves mysteries. The only question is whether you want to solve them or just enjoy the moment."
+            w "Well, then I choose to savour."
+            show william smile light at left1 with move
+            show mia smile p2 light
+            w "For example, this painting here...Here I see... something incomprehensible, but vivid."
+            m "Exactly! It's like dreams or images in your head. All vague but leaving an impression."
+            w "Maybe you're right."
+            m "That's good. It's not always about understanding. It's all about feeling something."
+            show william happy light at right1 with move
+            show mia smile light
+            w "Yeah, I already have a feeling that I like being here with you."
+            show mia shy light
+            "Mia's embarrassed."
+            show mia confused light
+            m "Ops, it's time to go home."
+            menu:
+                "Offer to walk Mia home?"
+                
+                "Yes":
+                    call yes from _call_yes_1
+                
+                "No":
+                    call no from _call_no_1
+
+
+            w "Okey, see you tommorow then."
+            m "Bye."
+            hide mia with moveoutright
+            show screen map_button
+            $ current_location = "art_gallery"
+            $ next_location = "home"
+            n "Go home."
+            
+        
+    else:
+        show screen map_button
+        w "I don't have to go to the art gallery right now."
+
+    return
+
+
+label gallery_ticket:
+    n "You bought two tickets"
+    $ money -= 20
+    play sound money
+    n "You spent $20 for 2 tickets."
+    
+    return
+            
     
     
