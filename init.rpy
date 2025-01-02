@@ -4,6 +4,34 @@ define t = Character("Teacher", color="#ff0000", callback=name_callback, cb_name
 define m = Character("Mia", color="#ff99dd", callback=name_callback, cb_name="mia")
 define s = Character("Sabrina", color="#ff99dd", callback=name_callback, cb_name="sabrina")
 
+#Mūzika un skaņas efekti
+define audio.start = "music/start_music.mp3"
+define audio.main = "music/main_music.mp3"
+define audio.classroom = "music/classroom_music.mp3"
+define audio.corridor = "music/school_corridor_music.mp3"
+define audio.courtyard = "music/school_courtyard.mp3"
+define audio.park = "music/park.mp3"
+define audio.night_street = "music/night_street.mp3"
+define audio.city_center = "music/city_center.mp3"
+define audio.shopping_center = "music/shopping_center.mp3"
+define audio.cafe = "music/cafe_music.mp3"
+define audio.beach = "music/beach.mp3"
+define audio.concert = "music/concert.mp3"
+
+define audio.knock = "sounds/knocking.mp3"
+define audio.door = "sounds/door_open.mp3"
+define audio.bell = "sounds/school_bell.mp3"
+define audio.plus_point = "sounds/plus_point.mp3"
+define audio.minus_point = "sounds/minus_point.mp3"
+define audio.money = "sounds/money.mp3"
+define audio.taxi = "sounds/taxi.mp3"
+define audio.taxi_drive = "sounds/taxi_drive.mp3"
+define audio.victory = "sounds/victory.mp3"
+define audio.loss = "sounds/loss.mp3"
+define audio.calling = "sounds/phone_call.mp3"
+define audio.end_call = "sounds/end_of_call.mp3"
+define audio.camera_flash = "sounds/camera_flash.mp3"
+
 #Varoņu pozīciju definēšana
 init:
     $ right1 = Position(xalign=0.8, yalign=1.1)
