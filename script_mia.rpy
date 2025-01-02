@@ -445,4 +445,308 @@ label bakery_after:
             
     return
     
+label mia_home:
+    show william happy light
+    w "Let me walk you out."
+    show mia happy light
+    m "Let's go"
+    play sound plus_point
+    $ point_mia += 2
+    $ girl = point_mia
+    n "Good decision to walk the girl home at night +2 points."
+    show screen map_button
+    $ current_location = "bakery"
+    $ next_location = "house_mia"
+    n "You need to go home to Mia."
+
+    return
+    
+
+label taxi:
+    show william happy light
+    w "Let me call you a taxi."
+    show mia sad light
+    m "Oh, it's gonna be expensive."
+    w "It's no big deal."
+    show mia happy light
+    play sound plus_point
+    $ point_mia += 2
+    $ girl = point_mia
+    n "Good decision +2 points."
+    $ money -= 15
+    play sound money
+    n "You spent $15."
+    show taxi_icon at Transform(xpos=-200, ypos=286) with moveinleft
+    play sound taxi
+    show william smile light
+    w "A taxi's on its way."
+    show mia smile light
+    m "Thank you for the walk and the taxi."
+    w "You're welcome. I'll see you later."
+    m "See you."
+    hide mia with moveoutleft
+    play sound taxi_drive
+    hide taxi_icon
+    show screen map_button
+    $ current_location = "bakery"
+    $ next_location = "home"
+    n "It's very late, it's time to go home"
+    
+    return
+
+
+label go_home:
+    w "Well, I'll see you then."
+    m "See you."
+    hide mia with moveoutleft
+    play sound minus_point
+    $ point_mia -= 1
+    $ girl = point_mia
+    n "Mia thought you'd walk her home, she's scared to go home alone at night -1 point."
+    show screen map_button
+    $ current_location = "bakery"
+    $ next_location = "home"
+    n "It's very late, it's time to go home"
+    
+    return
+
+  
+label house_mia:
+    stop music fadeout 1
+    hide screen map_button
+    play music night_street
+    if next_location == "house_mia":
+        scene bg mia house night with fade
+        show mia smile light at left2 with moveinleft
+        show william smile light at right1 with moveinleft
+        m "Here we are."
+        show william happy light
+        w "All right. Nice walk. I'll see you later."
+        show mia happy light
+        m "See you later."
+        hide mia with moveoutright
+        show screen map_button
+        $ current_location = "house_mia"
+        $ next_location = "home"
+        show william smile
+        n "It's very late, it's time to go home"
+    else:
+        show screen map_button
+        w "I don't have to go Mia's house right now."
+        
+    return
+
+
+label home:
+    stop music fadeout 1
+    hide screen map_button
+    play music main
+    if next_location == "home":
+        
+        #Palielina mainīgā home_visited vērtību par 1
+        $ home_visited += 1
+        
+        #Ja spēlētājs pirmo reizi apmeklē māju
+        if home_visited == 1:
+            scene bg male bedroom night with fade
+            show william smile
+            w "Here I am at home."
+            show william happy
+            w "The walk turned out to be very interesting. I think I'm in with a chance!"
+            hide william with moveoutright
+            show william pijama smile with moveinright
+            w "So, it's time to go to bed."
+            
+            $ days_left -= 1
+            scene bg male bedroom day with fade
+            show william pijama smile
+            w "Good morning, It's such nice weather today."
+            show william pijama think
+            w "I need to think about where to invite Mia next."
+            show william pijama confused
+            w "I have $[money], but I don't think I have enough money to take Mia out."
+            show william pijama happy
+            w "I should go to my mum's work, she has her own candy shop. I can help her with something and make some money."
+            hide william with moveoutright
+            show william smile with moveinright
+            w "I am ready."
+            show screen map_button
+            $ current_location = "home"
+            $ next_location = "candy_shop"
+            n "You need to go to mother work. She is working at candy shop."
+        
+        #Ja spēlētājs otro reizi apmeklē māju
+        elif home_visited == 2:
+            scene bg male bedroom day with fade
+            show william happy with dissolve
+            w "I've got $[money], now I can definitely take Mia out."
+            menu:
+                "Where to invite Mia?"
+                
+                "Cinema":
+                    $ invitation_choice = "invite_cinema"
+                    jump invite_cinema
+                
+                "Art gallery":
+                    $ invitation_choice = "invite_gallery"
+                    jump invite_gallery
+        
+        elif home_visited == 3:
+            scene bg male bedroom night with fade
+            show william smile with dissolve
+            w "Tomorrow is another big day. {w}I need to go to bed earlier."
+            hide william with moveoutright
+            show william pijama smile with moveinright
+            w "Good night."
+            
+            $ days_left -= 1
+            scene bg male bedroom day with fade
+            show william pijama smile
+            w "Good morning, I have to go get ready so I'm not late for school again."
+            hide william with moveoutright
+            show william uniform happy with moveinright
+            w "Lets go to school."
+            show screen map_button
+            $ current_location = "home"
+            $ next_location = "school"
+            n "You need to go to school."
+        
+        elif home_visited == 4:
+            scene bg male bedroom day with fade
+            show william uniform smile with dissolve
+            w "I have to go change clothes and go to the meeting."
+            hide william with moveoutright
+            show william smile with moveinright
+            w "I'm ready."
+            if invitation_choice == "invite_cinema":
+                show screen map_button
+                $ current_location = "home"
+                $ next_location = "cinema"
+                n "You need to go to the cinema."
+            elif invitation_choice == "invite_gallery":
+                show screen map_button
+                $ current_location = "home"
+                $ next_location = "art_gallery"
+                n "You need to go to the art gallery."
+            
+        elif home_visited == 5:
+            scene bg male bedroom night with fade
+            show william smile with dissolve
+            w "Good day. {w}I think Mia liked it and my chances of going to prom with her have increased."
+            w "And now it's time to go to bed."
+            hide william with moveoutright
+            show william pijama smile with moveinright
+            
+            $ days_left -= 1
+            scene bg male bedroom day with fade
+            show william pijama confused
+            w "I have to go to school again."
+            w "I can't wait to get out of high school, but, okey, I'm gonna go get dressed."
+            hide william with moveoutright
+            show william uniform smile with moveinright
+            w "The only thing that makes me happy is that I get to see mia at school."
+            w "So, I need to go."
+            show screen map_button
+            $ current_location = "home"
+            $ next_location = "school"
+            n "You need to go to school."
+        
+        elif home_visited == 6:
+            scene bg male bedroom day with fade
+            show william uniform smile with dissolve
+            if invitation_choice == "invite_gallery2" or invitation_choice == "invite_cinema2":
+                w "I need to change my clothes fast."
+                hide william with moveoutright
+                show william smile with moveinright
+                show screen map_button
+                $ current_location = "home"
+                $ next_location = "candy_shop"
+                w "Now I need to go to the candy shop."
+            elif invitation_choice == "invite_walk":
+                w "I am at home."
+                if money >=10:
+                    $ home_visited += 1
+                    w "I have time to do my own things"
+                    mum "[char_name], can you help me?"
+                    w "Yes, mum. I'll change my clothes and come over."
+                    hide william with moveoutright
+                    n "...[char_name] is hepling his mum..."
+                    scene bg male bedroom night with fade
+                    show william pijama smile with dissolve
+                    w "Oh, It's time to go to sleep."
+                    
+                    $ days_left -= 1
+                    scene bg male bedroom day with fade
+                    show william pijama smile
+                    w "Good morning, {w}I need to change clothes and go to school."
+                    hide william with moveoutright
+                    show william uniform happy with moveinright
+                    show screen map_button
+                    $ current_location = "home"
+                    $ next_location = "school"
+                    n "You need to go to school."
+                else:
+                    show william uniform confused
+                    w "Omg, I don't have enough money to take Mia out."
+                    w "I have to go to my mum's work to earn money. {w}But I have to change first."
+                    hide william with moveoutright
+                    show william smile with moveinright
+                    w "I'm ready"
+                    show screen map_button
+                    $ current_location = "home"
+                    $ next_location = "candy_shop"
+                    n "You need to go to the candy shop"
+        
+        elif home_visited == 7:
+            scene bg male bedroom night with fade
+            show william smile with dissolve
+            w "Tomorrow is another good day since I'll be alone with Mia. {w}I need a good night's sleep, so, I need to go sleep right now."
+            hide william with moveoutright
+            show william pijama smile with moveinright
+            
+            $ days_left -= 1
+            scene bg male bedroom day with fade
+            show william pijama smile
+            w "Good morning, {w}I need to change clothes and go to school."
+            hide william with moveoutright
+            show william uniform happy with moveinright
+            show screen map_button
+            $ current_location = "home"
+            $ next_location = "school"
+            n "You need to go to school."
+            
+        elif home_visited == 8:
+            scene bg male bedroom night with fade
+            if invitation_choice == "invite_gallery2" or invitation_choice == "invite_cinema2":
+                show william smile with dissolve
+            elif invitation_choice == "invite_walk":
+                show william uniform smile with dissolve
+            w "Now I think mia's gonna agree to go to prom with me."
+            w "I'll ask her again tomorrow."
+            if invitation_choice == "invite_gallery2":
+                 show william confused
+            elif invitation_choice == "invite_walk":
+                 show william uniform confused
+            w "It's very exciting, I have to go to bed so I can get to tomorrow."
+            hide william with moveoutright
+            show william pijama smile with moveinright
+            
+            $ days_left -= 1
+            scene bg male bedroom day with fade
+            show william pijama confused
+            w "This is the day, I hope it goes well because I've tried so hard to make her like me."
+            hide william with moveoutright
+            show william uniform smile with moveinright
+            w "So, let's go!"
+            show screen map_button
+            $ current_location = "home"
+            $ next_location = "school"
+            n "You need to go to school."
+            
+    else:
+        show screen map_button
+        w "I don't have to go home right now."
+    
+    return    
+    
     
