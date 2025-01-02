@@ -380,3 +380,41 @@ screen move_button():
         xpos 1009
         ypos 10
         action SetVariable("william_pos", william_pos + 50)
+
+#Nopirkt kino biļeti
+default ticket_choise = "none" #Mainīgais, kas glābā nopirkto kino biļetes žanru
+screen buy_ticket():
+        imagebutton:
+            xpos 153 ypos 84
+            idle "images/icons/ticket_horror.png"
+            hover "images/icons/ticket_horror_hover.png"
+            action Call("buy_horror")
+
+        imagebutton:
+            xpos 153 ypos 385
+            idle "images/icons/ticket_scifi.png"
+            hover "images/icons/ticket_scifi_hover.png"
+            action Call("buy_scifi")
+
+        imagebutton:
+            xpos 153 ypos 684
+            idle "images/icons/ticket_melodrama.png"
+            hover "images/icons/ticket_melodrama_hover.png"
+            action Call("buy_melodrama")
+
+#Nopirkt biļeti uz galeriju
+screen buy_gallery_ticket():
+        imagebutton:
+            xpos 187 ypos 151
+            idle "images/icons/gallery_ticket.png"
+            hover "images/icons/gallery_ticket_hover.png"
+            action Call("gallery_ticket")
+            
+#Mainīgais, kas glabā informāciju par spēlētāja izdarīto lēmumu - kur uzaicināt meiteni
+default invitation_choice = "none"
+
+#Mainīgais, kas glabā informāciju par spēlētāja izdarīto lēmumu - kādu jautājumu uzdot
+default question_choice = "none"
+
+#Mainīgais, kas glabā informāciju par spēlētāja izdarīto lēmumu - kādu darbību veikt
+default action_choiсe = "none"
