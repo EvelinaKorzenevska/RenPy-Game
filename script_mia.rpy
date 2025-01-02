@@ -343,4 +343,106 @@ label tea:
     
     return 
     
+    label bakery:
+    stop music fadeout 1
+    hide screen map_button
+    play music main
+    if next_location == "bakery":
+        scene bg bakery entrance afternoon with fade
+        show william smile light at right1 with moveinright
+        show mia smile light at left2 with moveinright
+        w "Wait here then, I'll just go and get some and then we'll go for a walk."
+        m "Okey."
+        scene bg bakery afternoon with fade
+        n "Welcome to the bakery."
+        show screen money_display
+        n "Now your money will be displayed at the top."
+        show william smile with moveinright
+        
+        define tea = 0
+        define coffee = 0 
+        define item = ""
+        
+        #Ekrāns ar precēm
+        call screen shop_menu_drink
+        
+    else:
+        show screen map_button
+        w "I don't have to go to the bakery right now."
+
+    return
+    
+    
+label buy_item:
+    if item == "tea":
+        if money >= 5:
+            n "You bought a tea."
+            play sound money
+            $ money -= 5
+            n "You spent $5"
+        else:
+            n "Tea costs $5. You don't have enough."
+    elif item == "coffee":
+        if money >= 10:
+            n "You bought a coffee."
+            play sound money
+            $ money -= 10
+            n "You spent $20"
+        else:
+            "Coffee costs $10. You don't have enough."
+
+    jump bakery_after
+
+label bakery_after:
+    hide william with moveoutright
+    scene bg bakery entrance afternoon with fade
+    show mia smile light at left2
+    show william smile light at right1 with moveinright
+    if item == "tea":
+        show tea1_icon at Transform(xpos=1227, ypos=931)
+        show tea2_icon at Transform(xpos=1330, ypos=678)
+        w "This is for you."
+        show tea2_icon at Transform(xpos=565, ypos=757)
+        show mia happy light
+        m "Thank you"
+        $ point_mia += 1
+        $ girl = point_mia
+        play sound plus_point
+        n "Mia is pleased that you bought her favourite drink +1 point."
+    elif item == "coffee":
+        show coffee1_icon at Transform(xpos=1227, ypos=931)
+        show coffee2_icon at Transform(xpos=1330, ypos=678)
+        w "This is for you."
+        show coffee2_icon at Transform(xpos=565, ypos=757)
+        show mia sad light
+        m "I told you I don't like coffee."
+        $ point_mia -= 1
+        $ girl = point_mia
+        play sound minus_point
+        n "Mia's upset that you didn't remember the second time she didn't like coffee -1 point."
+        show william confused light
+        w "Oh, sorry. I can went to buy a tea."
+        m "No, thank you."
+    stop music fadeout 1
+    scene bg bakery entrance night with fade
+    play music night_street
+    show mia smile light at left2
+    show william smile light at right1
+    w "It's really late, it's time to go home."
+    m "Yes."
+        
+    menu:
+        "What to do?"
+            
+        "Walk a Mia home":
+            jump mia_home
+            
+        "Hail a taxi (Costs 15$)":
+            jump taxi
+            
+        "Returned to their homes":
+            jump go_home
+            
+    return
+    
     

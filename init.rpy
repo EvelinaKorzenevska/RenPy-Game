@@ -328,3 +328,34 @@ screen information:
                 text "Focus on the answers, there is a hidden logic that you need to grasp." size 30
                 null height 15
                 textbutton "CLOSE" action Hide("information") xalign 0.5
+
+#Spēlētāja nauda
+default money = 30
+screen money_display:
+    image "images/icons/money.png" xpos 55 ypos 24
+    text "{b}[money]{/b}" xpos 115 ypos 24 color "#FFFFFF" size 40
+
+#Pieejamas precces deklarēšana
+define tea = 0
+define coffee = 0 
+define coffee_with_honeycake = 0
+define coffee_with_cheesecake = 0
+define item = ""
+
+#Ekrāns ar precēm
+screen shop_menu_drink:
+    image "images/shop/MENU.png" xpos 354 ypos 292
+    imagebutton:
+        xpos 361
+        ypos 486
+        idle "images/shop/tea.png"
+        hover "images/shop/tea_hover.png"
+        #SetVariable nosaka jaunu vērtību mainīgajam
+        action [SetVariable("tea", tea + 1), SetVariable("item", "tea"), Jump("buy_item")]
+
+    imagebutton:
+        xpos 546
+        ypos 486
+        idle "images/shop/coffee.png"
+        hover "images/shop/coffee_hover.png"
+        action [SetVariable("coffee", coffee + 1), SetVariable("item", "coffee"), Jump("buy_item")]
