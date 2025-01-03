@@ -312,6 +312,123 @@ screen map_button:
         hover "images/map/map_icon_hover.png"
         action Show("map")
         
+#Mainīgie, kas uzskaita, cik reizes spēlētājs ir “apmeklējis” noteikto vietu
+default home2_visited = 0
+default school2_visited = 0
+default candy_shop2_visited = 0
+default concert_hall_visited = 0
+
+#Kartes ekrāns, izvēloties Sabrinu
+screen map2:
+    modal True
+    #Ekrāns tiks parādīts virs visiem pārējiem ekrāniem. Numurs norāda, kādā secībā ekrāns tiek parādīts (zorder 0 ir vistālākais ekrāns)
+    zorder 100
+    fixed:
+        xsize 1920 ysize 1119
+        add "images/map/map.gif" align(0.5,0.5) #Centrēšana
+    fixed:
+        xsize 1920 ysize 1119
+        
+        #Lokāciju definēšana
+        button:
+            xpos 634 ypos 348
+            xsize 90 ysize 90
+            idle_background "images/map/house.png"
+            hover_foreground "images/map/house_hover.png"    
+            tooltip "{b}Home{/b}{p}{i}{size=20}Click to go home{/i}"
+            action Hide("map2"), Jump("home2")
+            #Poga nav aktīva, ja spēlētājs atrodas tajā vietā
+            sensitive current_location != "home2"
+        
+        button:
+            xpos 798 ypos 528
+            xsize 80 ysize 80
+            idle_background "images/map/school.png"
+            hover_foreground "images/map/school_hover.png"
+            tooltip "{b}School{/b}{p}{i}{size=20}Click to go to school{/i}"
+            action Hide("map2"), Jump("school2")
+            sensitive current_location != "school2"
+            
+        button:
+            xpos 646 ypos 675
+            xsize 80 ysize 80
+            idle_background "images/map/park.png"
+            hover_foreground "images/map/park_hover.png"
+            tooltip "{b}Park{/b}{p}{i}{size=20}Click to go to the park{/i}"
+            action Hide("map2"), Jump("park2")
+            sensitive current_location != "park2"
+            
+        button:
+            xpos 480 ypos 552
+            xsize 80 ysize 80
+            idle_background "images/map/house_mia.png"
+            hover_foreground "images/map/house_mia_hover.png"
+            tooltip "{b}Sabrina's house{/b}{p}{i}{size=20}Click to go to Sabrina's house{/i}"
+            action Hide("map2"), Jump("house_sabrina")
+            sensitive current_location != "house_sabrina"
+        
+        button:
+            xpos 1266 ypos 297
+            xsize 80 ysize 80
+            idle_background "images/map/candy_shop.png"
+            hover_foreground "images/map/candy_shop_hover.png"
+            tooltip "{b}Candy shop{/b}{p}{i}{size=20}Click to go the candy shop{/i}"
+            action Hide("map2"), Jump("candy_shop2")
+            sensitive current_location != "candy_shop2"
+        
+        button:
+            xpos 829 ypos 297
+            xsize 80 ysize 80
+            idle_background "images/map/cafe.png"
+            hover_foreground "images/map/cafe_hover.png"
+            tooltip "{b}Cafe{/b}{p}{i}{size=20}Click to go to the cafe{/i}"
+            action Hide("map2"), Jump("cafe")
+            sensitive current_location != "cafe"
+        
+        button:
+            xpos 411 ypos 255
+            xsize 80 ysize 80
+            idle_background "images/map/beach.png"
+            hover_foreground "images/map/beach_hover.png"
+            tooltip "{b}Beach{/b}{p}{i}{size=20}Click to go to the beach{/i}"
+            action Hide("map2"), Jump("beach")
+            sensitive current_location != "beach"
+            
+        button:
+            xpos 1231 ypos 531
+            xsize 80 ysize 80
+            idle_background "images/map/concert_hall.png"
+            hover_foreground "images/map/concert_hall_hover.png"
+            tooltip "{b}Concert hall{/b}{p}{i}{size=20}Click to go to the concert hall{/i}"
+            action Hide("map2"), Jump("concert_hall")
+            sensitive current_location != "concert_hall"
+        
+        button:
+            xpos 928 ypos 400
+            xsize 80 ysize 80
+            idle_background "images/map/city_centre.png"
+            hover_foreground "images/map/city_centre_hover.png"
+            tooltip "{b}City Centre{/b}{p}{i}{size=20}Click to go there{/i}"
+            action Hide("map2"), Jump("city_centre2")
+            sensitive current_location != "city_centre2"
+            
+    $ tooltip = GetTooltip()
+    if tooltip:
+        fixed:
+            xpos 30 ypos 732
+            xsize 350 ysize 236
+            add "images/map/textbox.png"
+            text "{color=#000000}[tooltip]{/color}" align(0.5,0.5) text_align 0.5
+
+#Poga, kartes atvēršanai
+screen map_button_sabrina:
+    modal True
+    imagebutton:
+        xpos 210 ypos 0
+        idle "images/map/map_icon.png"
+        hover "images/map/map_icon_hover.png"
+        action Show("map2")
+        
 #Informācijas logs
 screen information:
         frame:
