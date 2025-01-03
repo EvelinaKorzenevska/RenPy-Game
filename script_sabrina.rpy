@@ -63,3 +63,45 @@ label sabrina:
     show william pijama happy
     w "I know! I'll invite her out. {w}There we'll get to know each other."
     show william pijama smile at right1 with move
+    #Telefona saziņa ar Sabrinu
+    $ contact_name = "Sabrina"
+    $ contact_icon = "images/sms_chat/icon_sabrina.png"
+    python:
+        for character, text in messages_list_sabrina:
+            play_message_sound() 
+            display_message(character, text)
+            renpy.show_screen("sms_chat")
+            renpy.pause()
+            renpy.hide_screen("sms_chat")
+
+    $ messages.clear()
+    
+    show william pijama happy
+    "Yay! {w}I can't wait for tomorrow."
+    
+    #Sakrāto punktu paradīšana
+    $ girl = point_sabrina
+    show screen earned_points
+    n "The points scored will be displayed on the right hand side"
+    play sound plus_point
+    $ point_sabrina += 1
+    $ girl = point_sabrina
+    n "Congratulations! You've earned + 1 point for the invitation."
+    
+    $ days_left -= 1
+    
+    scene bg male bedroom day with fade
+    show william pijama smile with dissolve
+    w "Oh, morning... Well, the day has finally arrived!"
+    show william pijama confused
+    w "Today is the meeting with Sabrina, and I think I'm a little nervous."
+    w "She's the most popular girl in school, I don't know how she agreed to go out with me."
+    show william pijama smile 
+    w "Okay, I need to get my head together and everything will be fine. {w}I've got to go get ready."
+    hide william with moveoutright
+    show william smile with moveinright
+    w "I'm ready!"
+    show william confused
+    w "I've got to think of something to talk about."
+    w "Okay, just don't be shy and everything will be fine."
+    show william smile
