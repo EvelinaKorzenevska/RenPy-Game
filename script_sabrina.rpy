@@ -105,3 +105,335 @@ label sabrina:
     w "I've got to think of something to talk about."
     w "Okay, just don't be shy and everything will be fine."
     show william smile
+     w "It's time to get out."
+    
+    show screen map_button_sabrina
+    $ current_location = "home2"
+    $ next_location = "park2"
+    n "To go to the meeting, open the map and find the park."
+
+    return
+
+
+label park2:
+    stop music fadeout 1
+    hide screen map_button_sabrina
+    play music park
+    if next_location == "park2":
+        scene bg park afternoon with fade
+        show william smile light at right1 with moveinright
+        show sabrina unhappy light at left2 with moveinleft
+        w "Hi!"
+        s "Hi."
+        show screen information
+        show william confused light
+        w "You look great."
+        s "I known."
+        show william happy light
+        w "I'm glad you came."
+        s "Honestly, I didn't think you'd have the guts to invite me."
+        show william smile light
+        w "Yeah, I did. Sometimes you gotta do something out of the ordinary, right?"
+        show sabrina sad light
+        s "What's on your mind, anyway? You think I accept any invitation?"
+        w "You know, to be honest. I just wanted to get to know you better. {w}You know, besides the ‘prettiest and most popular girl in school’ image that everyone sees."
+        show sabrina laught light
+        s "Oh, is that so? So you thought you could ‘get to know’ me in one walk in the park?"
+        w "Well, it's a start. Maybe you want to know something about me, too."
+        s "Let's see. {w}All right, come on, tell me what's so interesting about you. Or do you think I should just tell you everything about me?"
+        w "Okay, well, here's the thing: I love photography."
+        show william confused light
+        w "I didn't think I'd be the first to tell you this, but, um. photography is like a way for me to see things that other people don't normally see."
+        show sabrina smile light
+        s "A picture? And what, you'd like to take a picture of me, wouldn't you?"
+        show william smile light
+        w "Sabrina, you're being filmed by everyone around you. I'm more interested in seeing the real you, without that image."
+        w "I think there's someone behind that perfect facade that not many people know. I'd like to see her."
+        show sabrina confused light
+        s "You know, you're the first person who's ever said those things to me..... {w}Okay, you have a chance, but only one."
+        play sound plus_point
+        $ point_sabrina += 1
+        $ girl = point_sabrina
+        n "You managed to surprise Sabrina +1 point."
+        w "Nice."
+        hide screen information
+        
+        menu:
+            "What question to ask Sabrina?"
+            
+            "About hobbie":
+                $ question_choiсe = "hobbie"
+                call hobbie from _call_hobbie
+            
+            "About friends":
+                $ question_choiсe = "friends"
+                call friends from _call_friends
+                
+        
+        show william confused light
+        w "I'm curious to know, since you're popular, you must have had a lot of suitors?"
+        w "You just make such an impression...that all guys probably want to get to know you better."
+        show sabrina unhappy light
+        s "Maybe they do, but that doesn't mean I do. Some are just trying to play around. Others are looking for company so they can be more popular too. And I get bored quickly."
+        show william smile light
+        w "I see. And how did they try to surprise you?"
+        s "Gave all sorts of gifts, even strange ones sometimes, they wrote poems dedicated to me, also sang songs under the house, and many other things, I can't even remember now."
+        show william happy light
+        w "wow, it must be cool to get presents, huh?"
+        s "Not really, they often give such rubbish that you don't know where to put it. Also, before giving something, no one asks me what I like at all."
+        s "For example, I've always got bouquets of roses, both small and big, because guys think everyone likes roses. And I hate them, I like chamomiles."
+        w "But it's still nice to get presents."
+        s "Yeah, I really liked it at first, but now that it happens every day, it's getting boring."
+        w "Maybe, I don't know."
+        if question_choiсe == "hobbie":
+            call friends from _call_friends_1
+        elif question_choiсe == "friends":
+            call hobbie from _call_hobbie_1
+        
+        call free_time from _call_free_time
+        
+        scene bg park night with fade
+        show william smile light at right1
+        show sabrina smile light at left2
+        show screen money_display
+        n "Now your money will be displayed at the top."
+        w "Oh, it's getting late, time to go home."
+        menu:
+            "What to do?"
+            
+            "Walk a Sabrina home":
+                jump sabrina_home
+            
+            "Hail a taxi (Costs 15$)":
+                jump taxi2
+            
+            "Returned to their homes":
+                jump go_home2
+        
+    else:
+        show screen map_button_sabrina
+        play sound main
+        w "I don't have to go to the park right now."
+
+    return
+    
+
+label hobbie:
+    w "Listen, do you have a hobby? You know, something that inspires you or you just like."
+    show sabrina smile light
+    s "I do dance. It helps me feel stronger and more confident."
+    show william happy light
+    w "Wow, that's cool. {w}How many years have you been doing it?"
+    s "For over three years now. Actually, dancing requires a lot of strength and stamina, I myself didn't think I could handle it in the beginning. But it sucked me in."
+    w "It's really cool, and I can see why you like it. Does it help your confidence?"
+    s "Yes, when I train I forget about all the expectations and what is expected of me. At the dances I am just myself and it gives me a sense of freedom that is sometimes lacking."
+    show william smile light
+    w "I can see why you have a perfect body. Presumably you're eating properly?"
+    show sabrina laught light
+    s "Actually, no, I eat what I want, when I want. {w}I'm just lucky with my genetics."
+    show william sad light
+    w "Lucky, I'm the opposite. I only eat my favourite dessert on holidays."
+    show sabrina confused light
+    s "Unlucky, but what are your favourite dessert?"
+    
+    menu:
+        "What is your favourite dessert?"
+                
+        "Cheesecake":
+            call cheesecake from _call_cheesecake
+                
+        "Honey cake":
+            call honey_cake from _call_honey_cake
+
+    return
+    
+    
+label cheesecake:
+    show william smile light
+    w "My favourite dessert is a cheesecake."
+    show sabrina happy light
+    s "Omg, me too. I like eat it in the morning with coffee."
+    play sound plus_point
+    $ point_sabrina += 1
+    $ girl = point_sabrina
+    n "Sabrina is glad that your tastes match +1 point."
+    show william happy light
+    w "Wow. What a coincidence."
+    
+    return
+    
+    
+label honey_cake:
+    show william smile light
+    w "My favourite dessert is a honey cake. What about you?"
+    show sabrina smile light
+    s "I don't like honey, so I don't like a honey cake, but my favourite is a cheesecake. {w}I like eat it in the morning with coffee."
+    w "Cheesecake's good too, but it's not my favourite."
+    
+    return
+    
+    
+label friends:
+    w "Listen, do you have any real friends? The ones you can be totally yourself with?"
+    show sabrina sad light
+    s "You know... sometimes I think I don't. I have a lot of ‘acquaintances’, but friends... real ones - not so many."
+    w "Have you ever thought that maybe they want to get to know the real you too, like I do now?"
+    s "Maybe they do. But I'm used to being careful. {w}Even those who call themselves my friends often want something in return - popularity, attention... It's tiring."
+    show william sad light
+    w "I understand. I think it's really hard to be the centre of attention. People only see what they want to see."
+    s "Yeah. Sometimes I think they only see the picture and not me. At first I even liked it, but then it got... hard. It's like someone keeps expecting me to be perfect."
+    show william smile light
+    w "I don't think that's true. On the contrary, maybe if you let people see the real you, there will be those who will be there for you because they're interested in you, not your image."
+    s "Maybe... But it's still scary. {w}I can't even remember the last time I felt like I could just be myself."
+    w "Then maybe you should try it now. Well, just for the sake of experimenting."
+    show william happy light
+    w "I mean, there's no one here but me."
+    show sabrina smile light
+    s "Okay... I'll give it a try."
+    show sabrina confused
+    s "You know, to be honest, sometimes I want to leave all this, go somewhere far away and start again. {w}Somewhere where no one will know anything about me. Where I don't have to impress anyone or live up to anyone's expectations."
+    show william smile light
+    w "That would be brave, Where would you go if you could choose any place?"
+    s "Probably somewhere by the sea. Where it's quiet, where you can be alone with yourself."
+    show sabrina laught light
+    s "That's funny, isn't it? I, accustomed to attention, really just want silence."
+    menu:
+        "Is it funny?"
+            
+        "Funny":
+            call funny from _call_funny
+            
+        "Not funny":
+            call not_funny from _call_not_funny
+
+    return
+    
+    
+label funny:
+    show william happy light
+    w "It's funny. {w}You're a little weird."
+    show sabrina sad light
+    s "See, you judge me by my looks like everyone else."
+    show william confused light
+    w "No, don't think so, it's just unusual coming from someone who's always at attention."
+    s "Well, we'll see."
+    play sound minus_point
+    $ point_sabrina -= 1
+    $ girl = point_sabrina
+    n "Your response made it clear to sabrina that you're just like everyone else judging her from a picture -1 point."
+    
+    return
+    
+    
+label not_funny:
+    w "It's not funny at all. Silence is sometimes the only thing that helps you really understand yourself."
+    show sabrina smile light
+    s "You surprise me. I thought you were one of those people who judged me by my looks. And it turns out you see something more."
+    show william happy light
+    w "I wanted to see more than that. And, you know... {w}I'm glad you wanted to talk about it."
+    s "You know... Thank you for just listening and not expecting me to be perfect. I feel like I can just be me for the first time in a long time."
+    w "That's great. Maybe this is the beginning of a real friendship?"
+    s "Maybe..."
+    play sound plus_point
+    $ point_sabrina += 1
+    $ girl = point_sabrina
+    n "Sabrina likes to have a dialogue with you +1 point."
+    
+    return
+    
+
+label free_time:
+    show william smile light
+    w "And what do you usually do in your free time?"
+    show sabrina smile light
+    s "In my free time I like to go shopping, as well as to attend different events, for example, concerts of my favourite artists."
+    w "Cool. And what is your favourite artist?"
+    s "I listen to Ariana Grande's songs most of all, they are very energetic and uplifting. {w}I also listen to Beyoncé, I like to dance to her tracks."
+    w "Yeah, they do have energetic and popular songs."
+    
+    return
+    
+    
+label sabrina_home:
+    w "Let me walk you out."
+    s "Let's go"
+    play sound plus_point
+    $ point_sabrina += 2
+    $ girl = point_sabrina
+    n "Good decision to walk the girl home at night +2 points."
+    show screen map_button_sabrina
+    $ current_location = "park2"
+    $ next_location = "house_sabrina"
+    n "You need to go home to Sabrina."
+    
+    return
+    
+label taxi2:
+    w "Let me call you a taxi."
+    show sabrina happy light
+    s "Nice. I wouldn't want to walk home."
+    play sound plus_point
+    $ point_sabrina += 2
+    $ girl = point_sabrina
+    n "Good decision +2 points."
+    $ money -= 15
+    play sound money
+    n "You spent $15."
+    play sound taxi
+    show taxi_icon at Transform(xpos=-200, ypos=286) with moveinleft
+    w "A taxi's on its way."
+    show sabrina smile light
+    s "Thank you."
+    show william happy light
+    w "You're welcome. I'll see you later."
+    s "Okey."
+    hide sabrina with moveoutleft
+    play sound taxi_drive
+    hide taxi_icon
+    show screen map_button_sabrina
+    $ current_location = "park2"
+    $ next_location = "home2"
+    n "It's very late, it's time to go home"
+    
+    return
+    
+label go_home2:
+    w "Well, I'll see you then."
+    m "See you."
+    hide sabrina with moveoutleft
+    play sound minus_point
+    $ point_sabrina -= 1
+    $ girl = point_sabrina
+    n "Sabrina doesn't like to walk alone -1 point."
+    show screen map_button_sabrina
+    $ current_location = "park2"
+    $ next_location = "home2"
+    n "It's very late, it's time to go home"
+    
+    return
+    
+
+label house_sabrina:
+    stop music fadeout 1
+    hide screen map_button_sabrina
+    play music night_street
+    if next_location == "house_sabrina":
+        scene bg sabrina house night with fade
+        show sabrina smile light at left2 with moveinleft
+        show william smile light at right1 with moveinleft
+        s "Here we are."
+        show william happy light
+        w "All right. Nice walk. I'll see you later."
+        s "See you later."
+        hide sabrina with moveoutright
+        show screen map_button_sabrina
+        $ current_location = "house_sabrina"
+        $ next_location = "home2"
+        show william smile
+        n "It's very late, it's time to go home."
+
+    else:
+        show screen map_button_sabrina
+        w "I don't have to go Sabrina's house right now."
+        
+    return
