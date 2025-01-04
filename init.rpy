@@ -535,3 +535,10 @@ default question_choice = "none"
 
 #Mainīgais, kas glabā informāciju par spēlētāja izdarīto lēmumu - kādu darbību veikt
 default action_choiсe = "none"
+
+#Dzejoļa paradīšana
+screen poem:
+    text "{i}Hold fast to dreams, for if dreams die\nLife is a broken-winged bird, that cannot fly.\nHold fast to dreams, for when dreams go\nLife is a barren field, frozen with snow.{/i}":
+        xalign 0.5
+        yalign 0.25
+        size 30

@@ -691,3 +691,69 @@ label invite_cafe:
                 call homework from _call_homework_3
         
     return
+label homework:
+    w "I completely forgot, I have to do my homework."
+    hide screen money_display
+    hide screen earned_points
+    scene homework_table with dissolve
+    w "I have to learn a poem."
+    n "Try to memorise the poem, after which you will need to put in the missing words."
+    
+    #Izsaucam ekrānu ar dzejoli
+    show screen poem
+    n "Read the poem."
+    hide screen poem
+    call learn_poem from _call_learn_poem
+    show screen earned_points
+    scene bg male bedroom night with fade
+    show screen money_display
+    show william pijama happy with dissolve
+    w "Nice! I learned a poem."
+    w "So, it's time to go sleep."
+    $ days_left -= 1
+    scene bg male bedroom day with fade
+    show william pijama smile
+    w "Good morning, I have to get ready for school."
+    hide william with moveoutright
+    show william uniform smile with moveinright
+    show screen map_button_sabrina
+    $ current_location = "home2"
+    $ next_location = "school2"
+    n "Go to school."
+    return
+    
+label learn_poem:
+    n "Fill in the blanks: 'Hold fast to dreams. For if ______ die'"
+    #Ievaddatu saņemšana no spēlētāja
+    $ answer1 = renpy.input("Type in a word:").strip().lower() #Spēlētāja ievadītais teksts pirms pārbaudes tiek pārveidots uz mazajiem burtiem un izdzēš liekas atstarpes
+    if answer1 == "dreams":
+        n "Correct!"
+    else:
+        n "Incorrect. Try again."
+        jump learn_poem #Uzdevums atkārtojas, ja ir ievadīts nepareizs vārds
+        
+    n "Fill in the blanks: 'Life is a broken-winged ____, that cannot fly.'"
+    $ answer1 = renpy.input("Type in a word:").strip().lower()
+    if answer1 == "bird":
+        n "Correct!"
+    else:
+        n "Incorrect. Try again."
+        jump learn_poem
+    
+    n "Fill in the blanks: 'Hold fast to dreams, for when dreams __'"
+    $ answer1 = renpy.input("Type in a word:").strip().lower()
+    if answer1 == "go":
+        n "Correct!"
+    else:
+        n "Incorrect. Try again."
+        jump learn_poem
+    
+    n "Fill in the blanks: 'Life is a barren field, ______ with snow'"
+    $ answer1 = renpy.input("Type in a word:").strip().lower()
+    if answer1 == "frozen":
+        n "Correct!"
+    else:
+        n "Incorrect. Try again."
+        jump learn_poem
+
+    return
