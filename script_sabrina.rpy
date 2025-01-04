@@ -618,3 +618,76 @@ label home2:
         w "I don't have to go home right now."
         
     return
+    
+label invite_beach:
+    show william pijama happy
+    w "Sabrina said she likes to sit on the beach in silence. {w}I'll invite her to take a walk there."
+    w "I need to call Sabrina to invite her!"
+    show william pijama smile at right1 with move
+    play sound calling
+    show screen phone_call("Sabrina", "images/sms_chat/icon_sabrina2.png", "Calling...") with dissolve
+    pause 2
+    show screen phone_call("Sabrina", "images/sms_chat/icon_sabrina2.png", "Conversation") with dissolve
+    n "[char_name] is talking with Sabrina."
+    show screen phone_call("Sabrina", "images/sms_chat/icon_sabrina2.png", "Call ended") with dissolve
+    play sound end_call
+    hide screen phone_call with dissolve
+    show william pijama confused
+    w "Eh, Sabrina's busy today."
+    w "I need to find something to do."
+    menu:
+        "What to do?"
+                
+        "Play computer games":
+            $ action_choiсe = "games"
+            call games from _call_games_1
+                
+        "Do homework":
+            $ action_choiсe = "homework"
+            call homework from _call_homework_2
+
+    return
+
+
+label invite_cafe:
+    show william pijama happy
+    w "I think Sabrina likes to go to coffee shops and restaurants. {w}I'll take her out for her favourite drink."
+    w "I can call Sabrina to invite her to the cafe!"
+    show william pijama smile at right1 with move
+    play sound calling
+    show screen phone_call("Sabrina", "images/sms_chat/icon_sabrina2.png", "Calling...") with dissolve
+    pause 2
+    show screen phone_call("Sabrina", "images/sms_chat/icon_sabrina2.png", "Conversation") with dissolve
+    n "[char_name] is talking with Sabrina."
+    show screen phone_call("Sabrina", "images/sms_chat/icon_sabrina2.png", "Call ended") with dissolve
+    play sound end_call
+    hide screen phone_call with dissolve
+    if money <=20:
+        w "Sabrina's busy today."
+        show william pijama confused
+        w "But I have only $[money]. Maybe I won't have enough."
+        show william pijama smile
+        w "I should go to my mum's work, she has her own candy shop. I can help her with something and make some money."
+        hide william with moveoutright
+        show william smile with moveinright
+        w "I am ready to go."
+        show screen map_button_sabrina
+        $ current_location = "home2"
+        $ next_location = "candy_shop2"
+        n "You need to go to mother work. She is working at candy shop."
+    else:
+        show william pijama confused
+        w "Eh, Sabrina's busy today."
+        w "I need to find something to do."
+        menu:
+            "What to do?"
+                
+            "Play computer games":
+                $ action_choiсe = "games"
+                call games from _call_games_2
+                
+            "Do homework":
+                $ action_choiсe = "homework"
+                call homework from _call_homework_3
+        
+    return
