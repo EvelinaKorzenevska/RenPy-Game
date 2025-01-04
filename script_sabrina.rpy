@@ -437,3 +437,184 @@ label house_sabrina:
         w "I don't have to go Sabrina's house right now."
         
     return
+    
+label home2:
+    stop music fadeout 1
+    hide screen map_button_sabrina
+    play music main
+    if next_location == "home2":
+        $ home2_visited += 1
+        if home2_visited == 1:
+            scene bg male bedroom night with fade
+            show william smile with dissolve
+            w "Here I am at home."
+            show william happy
+            w "It was an interesting walk, even got Sabrina talking. {w}Maybe even I have a chance!"
+            hide william with moveoutright
+            show william pijama smile with moveinright
+            w "So, it's time to go to bed."
+            
+            $ days_left -= 1
+            scene bg male bedroom day with fade
+            show william pijama smile
+            w "Good morning, It's such a nice day today."
+            show william pijama think
+            w "I need to think about where to invite Sabrina next."
+            menu:
+                "Where to invite Sabrina"
+                
+                "Beach walk":
+                    $ invitation_choice = "invite_beach"
+                    call invite_beach from _call_invite_beach
+                
+                "Go to cafe":
+                    $ invitation_choice = "invite_cafe"
+                    call invite_cafe from _call_invite_cafe
+                    
+        elif home2_visited == 2:
+            if money >= 40:
+                scene bg male bedroom night with fade
+                show william smile with dissolve
+                w "I'm tired and it's time to go to bed."
+                hide william with moveoutright
+                show william pijama smile with moveinright
+                $ days_left -= 1
+                scene bg male bedroom day with fade
+                show william pijama smile
+                w "Good morning, I have to get ready for school."
+                hide william with moveoutright
+                show william uniform smile with moveinright
+                show screen map_button_sabrina
+                $ current_location = "home2"
+                $ next_location = "school2"
+                n "Go to school."
+                
+            else:
+                $ home2_visited += 1
+                scene bg male bedroom day with fade
+                play music main
+                show william uniform smile with dissolve
+                w "I need to get cleaned up and go to the meeting with Sabrina."
+                hide william with moveoutright
+                show william smile with moveinright
+                w "I'm ready."
+                if invitation_choice == "invite_beach":
+                    show screen map_button_sabrina
+                    $ current_location = "home2"
+                    $ next_location = "beach"
+                    n "Go to the beach."
+                elif invitation_choice == "invite_cafe":
+                    show screen map_button_sabrina
+                    $ current_location = "home2"
+                    $ next_location = "cafe"
+                    n "Go to the cafe."
+                
+        elif home2_visited == 3:
+            if money >= 40:
+                scene bg male bedroom day with fade
+                show william uniform smile with dissolve
+                w "I need to get cleaned up and go to the meeting with Sabrina."
+                hide william with moveoutright
+                show william smile with moveinright
+                show screen map_button_sabrina
+                $ current_location = "home2"
+                $ next_location = "cafe"
+                n "Go to the cafe."
+        
+        elif home2_visited == 4:
+            scene bg male bedroom night with fade
+            if invitation_choice == "invite_beach":
+                show william happy with dissolve
+                w "Had such a great walk with Sabrina today and I'm glad that she like the photos."
+                w "Now I can look at these pictures all day long."
+                show william smile
+                w "But now I need to go sleep."
+
+            elif invitation_choice == "invite_cafe":
+                show william smile with dissolve
+                w "I hope Sabrina enjoyed our evening tonight."
+                w "I'll have to figure out what to do next. {w}But that's tomorrow."
+                w "Now I need to go sleep."
+            
+            hide william with moveoutright
+            show william pijama smile with moveinright
+            $ days_left -= 1
+            scene bg male bedroom day with fade
+            show william pijama smile
+            w "Today is another good day."
+            w "I need to go to school."
+            hide william with moveoutright
+            show william uniform smile with moveinright
+            show screen map_button_sabrina
+            $ current_location = "home2"
+            $ next_location = "school2"
+            n "Go to school."
+        
+        elif home2_visited == 5:
+            if previous_location == "candy_shop2":
+                scene bg male bedroom night with fade
+                show william pijama smile with dissolve
+                call homework from _call_homework
+            
+            else:
+                scene bg male bedroom day with fade
+                show william uniform smile with dissolve
+                if action_choiсe == "games":
+                    call homework from _call_homework_1
+
+                elif action_choiсe == "homework":
+                    call games from _call_games
+
+        elif home2_visited == 6:
+            scene bg male bedroom day with fade
+            show william uniform smile
+            w "I don't have a lot of time, so I have to pack up and get out of the house quickly."
+            hide william with moveoutright
+            show william smile with moveinright
+            w "I'm ready."
+            if invitation_choice == "invite_beach":
+                show screen map_button_sabrina
+                $ current_location = "home2"
+                $ next_location = "beach"
+                n "Go to the beach."
+            elif invitation_choice == "invite_cafe":
+                show screen map_button_sabrina
+                $ current_location = "home2"
+                $ next_location = "cafe"
+                n "Go to the cafe."
+            elif invitation_choice == "invite_concert":
+                show screen map_button_sabrina
+                $ current_location = "home2"
+                $ next_location = "concert_hall"
+                n "Go to the concert hall."
+                
+        elif home2_visited == 7:
+            scene bg male bedroom night with fade
+            show william smile
+            w "Today was a very good day."
+            w "There's hardly any time left to ask Sabrina to prom. {w}So I'll have to get an answer from her tomorrow."
+            show william confused
+            w "I hope she'll agree."
+            show william smile 
+            w "But now I need to go sleep."
+            hide william with moveoutright
+            show william pijama smile with moveinright
+            $ days_left -= 1
+            scene bg male bedroom day with fade
+            show william pijama confused with dissolve
+            w "I'm a little afraid to go up to sabrina and ask, but I have to, it's not like I tried for nothing."
+            w "Maybe buy some flowers for Sabrina?"
+            menu:
+                "Buy some flowers for Sabrina?"
+            
+                "Yes":
+                    jump buy_flowers2
+            
+                "No":
+                    jump not_buy_flowers
+        
+    else:
+        show screen map_button_sabrina
+        w "I don't have to go home right now."
+        
+    return
