@@ -1301,3 +1301,124 @@ label invite_beach2:
     n "Go home."
     
     return
+
+label invite_concert:
+    w "I will invite her to the concert."
+    t "Thank you class. That's all for today."
+    w "Nice, lessons is over."
+    stop music fadeout 1
+    scene bg corridor day with fade
+    play music corridor
+    show william uniform smile with dissolve
+    w "I need to find Sabrina, to invite her."
+    hide william with moveoutleft
+    stop music fadeout 1
+    scene bg courtyard day with fade
+    play music courtyard
+    show sabrina uniform smile light at left1 with dissolve
+    show william uniform smile light with moveinleft
+    w "Hi, Sabrina!"
+    s "Hi."
+    w "Maybe you want to go with me to the concert?"
+    s "Hm, when?"
+    w "I'll see what time the concerts are tomorrow."
+    s "Okey. {w}I agree."
+    show william uniform happy light
+    w "Cool, see you tomorrow then."
+    s "See you tomorrow."
+    hide sabrina with moveoutright
+    w "I'm happy, that Sabrina agree."
+    if money >= 30:
+        show william uniform smile
+        w "Now I need to go to buy a concert tickets."
+        show screen map_button_sabrina
+        $ current_location = "school2"
+        $ next_location = "concert_hall"
+        n "Go to the concert hall, to buy a tickets."
+
+    else:
+        show william uniform suprized
+        w "I don't think there's enough money to buy a tickets."
+        show william uniform smile
+        w "I've got time to earn."
+        show screen map_button_sabrina
+        $ current_location = "school2"
+        $ next_location = "candy_shop2"
+        n "Go to the candy shop, to earn some money."
+
+    return
+
+
+label concert_hall:
+    hide screen map_button_sabrina
+    if next_location == "concert_hall":
+        $ concert_hall_visited += 1
+        if concert_hall_visited == 1:
+            scene bg concert hall entrance afternoon with fade
+            show william smile with dissolve
+            n "Choose whose concert you want to attend - Ariana Grande's or Lady Gaga's."
+            call screen buy_concert_ticket
+            show william happy
+            w "Nice, tickets are purchased."
+            w "I'll give the ticket to Sabrina at school tomorrow."
+            show screen map_button_sabrina
+            $ current_location = "concert_hall"
+            $ next_location = "home2"
+            show william smile
+            w "I need to go home."
+        elif concert_hall_visited == 2:
+            scene bg concert hall entrance afternoon with fade
+            show william smile light with dissolve
+            show sabrina smile light at left1 with moveinleft
+            w "The concert's about to start, come on, let's go."
+            show sabrina happy light
+            s "Let's go"
+            stop music fadeout 1
+            scene bg concert hall with fade
+            play music concert
+            n "...An artiste is performing..."
+            stop music fadeout 1
+            scene bg concert hall entrance night with fade
+            play music main
+            show sabrina happy light at left1 with dissolve
+            show william smile light with dissolve
+            s "Wow, that was exelent. I liked."
+            show william happy light 
+            w "Me too."
+            $ point_sabrina += 1
+            $ girl = point_sabrina
+            play sound plus_point
+            n "Sabrina like the concert +1 point."
+            s "Thank you very much! Now I need to go home."
+            w "Thank you too. Bye, bye!"
+            hide sabrina with moveoutleft
+            show screen map_button_sabrina
+            $ current_location = "concert_hall"
+            $ next_location = "home2"
+            n "Go home."
+
+    else:
+        show screen map_button_sabrina
+        w "I don't have to go to the concert hall right now."
+    
+    return
+
+
+label buy_grande:
+    $ concert_ticket_choise = "buy_grande"
+    n "You bought two tickets to an Ariana Grande concert."
+    $ money -= 30
+    play sound money
+    n "You spent $30 for 2 tickets."
+
+    return
+    
+    
+label buy_gaga:
+    $ concert_ticket_choise = "buy_gaga"
+    n "You bought two tickets to an Lady Gaga concert."
+    $ money -= 30
+    play sound money
+    n "You spent $30 for 2 tickets."
+
+    return
