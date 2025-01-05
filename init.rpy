@@ -542,3 +542,61 @@ screen poem:
         xalign 0.5
         yalign 0.25
         size 30
+
+#Datora poga, lai sākt spēlēt spēli
+screen computer_button:
+    modal True
+    imagebutton:
+        xpos 396 ypos 499
+        idle "images/icons/computer.png"
+        hover "images/icons/computer_hover.png"
+        action Show("choice_menu")
+
+#Ekrāns ar spēles sākumu
+screen choice_menu:
+    add "images/bg/computer.png"
+    modal True
+    text "Rock-paper-scissors game, make a choice." align .5, .6
+    imagebutton:
+        xalign 0.35
+        yalign 0.4
+        idle "images/icons/rock_idle.png"
+        hover "images/icons/rock_hover.png"
+        action [SetVariable("player_choice", "rock"), Hide("choice_menu"), Show("result")]
+
+    imagebutton:
+        xalign 0.5
+        yalign 0.4
+        idle "images/icons/scissors_idle.png"
+        hover "images/icons/scissors_hover.png"
+        action [SetVariable("player_choice", "scissors"), Hide("choice_menu"), Show("result")]
+
+    imagebutton:
+        xalign 0.65
+        yalign 0.4
+        idle "images/icons/paper_idle.png"
+        hover "images/icons/paper_hover.png"
+        action [SetVariable("player_choice", "paper"), Hide("choice_menu"), Show("result")]
+
+#Ekrāns ar spēles rezultātu
+screen result:
+    add "images/bg/computer.png"
+    modal True
+    python:
+        computer_choice = renpy.random.choice(["rock", "scissors", "paper"])
+    
+    if player_choice == computer_choice:
+        text "It's a tie!" align .5, .45
+    elif (player_choice == "rock" and computer_choice == "scissors") or (player_choice == "scissors" and computer_choice == "paper") or (player_choice == "paper" and computer_choice == "rock"):
+        text "You win!" align .5, .45
+    else:
+        text "You lose!" align .5, .45
+
+    add "/images/icons/" + player_choice + "_idle.png" align .5, .3
+    add "/images/icons/" + computer_choice + "_idle.png" align .5, .6
+    
+    text "Play it again?" align .7, .45
+    hbox:
+        align .68, .5
+        textbutton "Yes" action[Hide("result"), Show("choice_menu")]
+        textbutton "No" action[Hide("result"), Jump("end")]

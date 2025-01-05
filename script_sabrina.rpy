@@ -691,6 +691,33 @@ label invite_cafe:
                 call homework from _call_homework_3
         
     return
+
+label games:
+    w "I'm gonna go play my favourite computer game."
+    show screen computer_button
+    n "Click on the computer to play."
+    
+    return
+
+
+label end:
+    hide screen computer_button
+    scene bg male bedroom night with fade
+    show william pijama smile with dissolve
+    w "I don't want to play anymore. It's time to go sleep."
+    $ days_left -= 1
+    scene bg male bedroom day with fade
+    show william pijama smile with dissolve
+    w "Good morning, I have to get ready for school."
+    hide william with moveoutright
+    show william uniform smile with moveinright
+    show screen map_button_sabrina
+    $ current_location = "home2"
+    $ next_location = "school2"
+    n "Go to school."
+    
+    return
+
 label homework:
     w "I completely forgot, I have to do my homework."
     hide screen money_display
