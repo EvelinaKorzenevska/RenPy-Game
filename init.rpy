@@ -693,3 +693,20 @@ screen photos():
                 textbutton "Next" action [SetVariable("current_photo_index", current_photo_index + 1), Function(renpy.restart_interaction)]
             
             textbutton "Close" action Hide("photos"), Jump("after_photo")
+
+#Nopirkt koncerta biļeti
+default concert_ticket_choise = "none"
+
+#Ekrāns ar piedavātajām biļetēm
+screen buy_concert_ticket():
+        imagebutton:
+            xpos 153 ypos 84
+            idle "images/icons/ticket_grande.png"
+            hover "images/icons/ticket_grande_hover.png"
+            action Call("buy_grande")
+
+        imagebutton:
+            xpos 153 ypos 385
+            idle "images/icons/ticket_gaga.png"
+            hover "images/icons/ticket_gaga_hover.png"
+            action Call("buy_gaga")
