@@ -1112,3 +1112,52 @@ label not_change:
     hide sabrina with moveoutright
     
     return
+    
+label invite_cafe2:
+    w "I will invite her to the cafe."
+    t "Thank you class. That's all for today."
+    w "Nice, lessons is over."
+    stop music fadeout 1
+    scene bg corridor day with fade
+    play music corridor
+    show william uniform smile with dissolve
+    w "I need to find Sabrina, to invite her."
+    hide william with moveoutleft
+    stop music fadeout 1
+    scene bg courtyard day with fade
+    play music courtyard
+    show sabrina uniform smile light at left1 with dissolve
+    show william uniform smile light with moveinleft
+    w "Hi, Sabrina!"
+    s "Hi."
+    w "Maybe you want to go with me to the cafe?"
+    s "Hm, when?"
+    w "We can go tomorrow at evening."
+    s "Okey, let's go."
+    $ point_sabrina += 1
+    $ girl = point_sabrina
+    play sound plus_point
+    n "Sabrina like, that you invited her to the cafe +1 point."
+    show william uniform happy light
+    w "Cool, see you tomorrow then."
+    s "See you tomorrow."
+    hide sabrina with moveoutright
+    w "I'm happy, that Sabrina agree."
+    if money >= 30:
+        show william uniform smile
+        w "Now I can go home."
+        show screen map_button_sabrina
+        $ current_location = "school2"
+        $ next_location = "home2"
+        n "Go home."
+    else:
+        show william uniform suprized
+        w "I don't think there's enough money to go to a cafe."
+        show william uniform smile
+        w "I've got time to earn."
+        show screen map_button_sabrina
+        $ current_location = "school2"
+        $ next_location = "candy_shop2"
+        n "Go to the candy shop, to earn some money."
+
+    return
