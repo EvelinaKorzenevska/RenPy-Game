@@ -664,3 +664,32 @@ screen clean_rubbish:
             xpos 78 ypos 732
             idle "images/rubbish/paper.png"
             action [SetVariable("rubbish5_visible", False), Hide("rubbish5")]
+            
+#Foto efekts
+image camera_frame = "images/icons/camera_frame.png"  #Kameras rāmis
+
+#Zibspuldzes efekts (Parametri - zibspuldzes vienmērīgas pārejas laiks, pēc cik sekundēm tiek parādīta vienkrāsa, pēc cik sekundēm tiek parādīts dialoga teksts.)
+define flash = Fade(.25, 0, .75, color="#ffffff") 
+
+#Ekrāns ar bildēm
+init python:
+    photos = ["images/icons/foto1.png", "images/icons/foto2.png"] #Fotoattēlu saraksts
+    current_photo_index = 0 #Mainīgais pašreizējam fotoattēla indeksam
+
+screen photos():
+    modal True
+    add photos[current_photo_index] align .5, .2 #Parādīt pašreizējo fotoattēlu ar indeksu 0
+    
+    #Pogas veidošana
+    vbox:
+        align (0.5, 0.75)
+        hbox:
+            #Pāriet pie iepriekšējas bildes
+            if current_photo_index > 0:
+                textbutton "Previous" action[SetVariable("current_photo_index", current_photo_index - 1), Function(renpy.restart_interaction)] #Funkcija, kas ļauj restartēt pašreizējo ekrānu, liekot to pārzīmēt no jauna
+            
+            #Pāriet pie nākamās bildes
+            if current_photo_index < len(photos) - 1: #Pārbauda, vai pašreizējais fotoattēla indekss ir pēdējais sarakstā
+                textbutton "Next" action [SetVariable("current_photo_index", current_photo_index + 1), Function(renpy.restart_interaction)]
+            
+            textbutton "Close" action Hide("photos"), Jump("after_photo")
