@@ -879,3 +879,236 @@ label candy_shop2:
         w "I don't have to go to candy shop right now."
         
     return
+    
+label cafe:
+    hide screen map_button_sabrina
+    if next_location == "cafe":
+        scene bg bakery entrance afternoon with fade
+        show william smile with dissolve
+        w "Sabrina's not here yet. {w}I'm gonna go to see what I can buy for her."
+        stop music fadeout 1
+        scene bg bakery afternoon with fade
+        play music cafe
+        show william smile with moveinright
+
+        call screen shop_menu
+        
+    else:
+        show screen map_button_sabrina
+        w "I don't have to go to the cafe right now."
+
+    return
+    
+
+label buy_item1:
+    if item == "coffee_with_honeycake":
+        if money >= 25:
+            n "You bought a two coffee with two honeycakes."
+            play sound money
+            $ money -= 25
+            n "You spent $25"
+        else:
+            n "You don't have enough money."
+    elif item == "coffee_with_cheesecake":
+        if money >= 30:
+            n "You bought a two coffee with two cheesecakes."
+            play sound money
+            $ money -= 30
+            n "You spent $30"
+        else:
+            "You don't have enough money."
+
+    jump cafe_after
+
+
+label cafe_after:
+    show william happy
+    w "Great, I had enough money. {w}I'm gonna go find an empty table."
+    hide william with moveoutleft
+    scene bg cafe with fade
+    show william happy with moveinright
+    w "How lucky I am to be able to choose any table. {w}I'll stay here."
+    show sabrina smile light at left3 with moveinright
+    show william happy light at right1 with move
+    w "Hi!"
+    s "Hi."
+    show william smile light
+    w "I've already placed an order, so we'll just have to wait."
+    show sabrina happy light
+    s "Nice."
+    show salesperson light at left1 with moveinleft
+    if item == "coffee_with_honeycake":
+        sal "Hello, this is for you. Enjoy."
+        show coffee1_icon at Transform(xpos=1071, ypos=619)
+        show coffee2_icon at Transform(xpos=954, ypos=619)
+        show honeycake1_icon at Transform(xpos=1161, ypos=655)
+        show honeycake2_icon at Transform(xpos=855, ypos=645)
+        show william happy light
+        w "Thank you!"
+        hide salesperson with moveoutleft
+        w "I hope I ordered what you like."
+        s "Yea, I like coffee. {w}But what kind of dessert it is?"
+        show william smile light
+        w "Honey cake."
+        show sabrina sad light
+        s "I don't like honey cake, I told you!"
+        $ point_sabrina -= 1
+        $ girl = point_sabrina
+        play sound minus_point
+        n "Sabrina is sad, that you don't remember what is her favourite dessert -1 point."
+        show william confused light
+        w "Omg, I forgot about that, sorry."
+        s "I'll have to drink only coffee. {w}You can have my piece too."
+        menu:
+            "Try to change honeycake?"
+                
+            "Change":
+                call change from _call_change
+                
+            "Not change":
+                call not_change from _call_not_change
+                
+        show screen map_button_sabrina
+        $ current_location = "cafe"
+        $ next_location = "home2"
+        n "Go home."
+        
+    elif item == "coffee_with_cheesecake":
+        sal "Hello, this is for you. Enjoy."
+        show coffee1_icon at Transform(xpos=1071, ypos=619)
+        show coffee2_icon at Transform(xpos=954, ypos=619)
+        show cheesecake1_icon at Transform(xpos=1161, ypos=655)
+        show cheesecake2_icon at Transform(xpos=855, ypos=645)
+        show william happy light
+        w "Thank you!"
+        hide salesperson with moveoutleft
+        w "I hope I ordered what you like."
+        show sabrina happy light
+        s "Oh, you ordered my favourite dessert!"
+        w "Yes, I rememered that."
+        $ point_sabrina += 2
+        $ girl = point_sabrina
+        play sound plus_point
+        n "Sabrina is happy, that you remember and order her favourite dessert +2 points."
+        show william smile light
+        show sabrina smile light
+        n "...Talk..."
+        hide coffee1_icon
+        hide coffee2_icon
+        hide cheesecake1_icon
+        hide cheesecake2_icon
+        w "So, it's time to go home."
+        show sabrina happy light
+        s "Yes. Thank you for the evening."
+        show william happy light
+        w "Thank you too."
+        hide sabrina with moveoutright
+        show screen map_button_sabrina
+        $ current_location = "cafe"
+        $ next_location = "home2"
+        n "Go home."
+        
+    return
+
+
+label change:
+    w "Wait a few minutes."
+    hide william with moveoutright
+    scene bg bakery afternoon with fade
+    show salesperson at left1 with dissolve
+    show william smile with moveinleft
+    w "Can I have a question?"
+    sal "Yes of course."
+    w "I ordered a two coffee and two honeycakes. Can I change one honey cake to cheesecake?"
+    sal "Yes, but you will have to pay an extra $5."
+    if money >= 5:
+        show william happy light
+        w "Nice."
+        play sound money
+        $ money -= 5
+        "You spend $5 for cheesecake."
+        hide william with moveoutleft
+        scene bg cafe with fade
+        show sabrina sad light at left3 with dissolve
+        show coffee1_icon at Transform(xpos=1071, ypos=619)
+        show coffee2_icon at Transform(xpos=954, ypos=619)
+        show honeycake1_icon at Transform(xpos=1161, ypos=655)
+        show honeycake2_icon at Transform(xpos=855, ypos=645)
+        show william smile light at right1 with moveinright
+        w "I'm here."
+        s "I see."
+        show salesperson at left1 with moveinleft
+        hide honeycake2_icon 
+        show cheesecake2_icon at Transform(xpos=855, ypos=645)
+        hide salesperson with moveoutleft
+        show sabrina happy light
+        s "Oh, this is for me?"
+        w "Yes."
+        s "Thank you, this is my favourite dessert!"
+        $ point_sabrina += 1
+        $ girl = point_sabrina
+        play sound plus_point
+        n "Sabrina is happy, that you order her favourite dessert +1 point."
+        show william happy light
+        w "Nice, that you like it."
+        show william smile light
+        show sabrina smile light
+        n "...Talk..."
+        hide coffee1_icon 
+        hide coffee2_icon
+        hide honeycake1_icon
+        hide cheesecake2_icon
+        w "So, it's time to go home."
+        show sabrina happy light
+        s "Yes. Thank you for the evening."
+        show william happy light
+        w "Thank you too."
+        hide sabrina with moveoutright
+        
+    else:
+        show william sad light
+        n "You don't have $5."
+        w "Sorry, I don't want to change."
+        hide william with moveoutleft
+        scene bg cafe with fade
+        show sabrina sad light at left3 with dissolve
+        show coffee1_icon at Transform(xpos=1071, ypos=619)
+        show coffee2_icon at Transform(xpos=954, ypos=619)
+        show honeycake1_icon at Transform(xpos=1161, ypos=655)
+        show honeycake2_icon at Transform(xpos=855, ypos=645)
+        show william confused light at right1 with moveinright
+        w "I'm here."
+        s "I see."
+        show william smile light
+        show sabrina smile light
+        n "...Talk..."
+        hide coffee1_icon 
+        hide coffee2_icon
+        hide honeycake1_icon
+        hide honeycake2_icon
+        w "So, it's time to go home."
+        s "Yes. Thanks for coffee."
+        show william happy light
+        w "Thanks for evening."
+        hide sabrina with moveoutright
+    
+    return
+    
+    
+label not_change:
+    w "I'm so sorry."
+    s "It's okay."
+    show william smile light
+    show sabrina smile light
+    n "...Talk..."
+    hide coffee1_icon 
+    hide coffee2_icon
+    hide honeycake1_icon
+    hide honeycake2_icon
+    w "So, it's time to go home."
+    s "Yes. Thanks for coffee."
+    show william happy light
+    w "Thanks for evening."
+    hide sabrina with moveoutright
+    
+    return

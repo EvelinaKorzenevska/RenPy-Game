@@ -477,6 +477,23 @@ screen shop_menu_drink:
         hover "images/shop/coffee_hover.png"
         action [SetVariable("coffee", coffee + 1), SetVariable("item", "coffee"), Jump("buy_item")]
 
+#Ekrāns ar precēm
+screen shop_menu:
+    image "images/shop/MENU.png" xpos 354 ypos 292
+    imagebutton:
+        xpos 320
+        ypos 486
+        idle "images/shop/coffee_honeycake.png"
+        hover "images/shop/coffee_honeycake_hover.png"
+        action [SetVariable("coffee_with_honeycake", coffee_with_honeycake + 1), SetVariable("item", "coffee_with_honeycake"), Jump("buy_item1")]
+
+    imagebutton:
+        xpos 540
+        ypos 486
+        idle "images/shop/coffee_cheesecake.png"
+        hover "images/shop/coffee_cheesecake_hover.png"
+        action [SetVariable("coffee_with_cheesecake", coffee_with_cheesecake + 1), SetVariable("item", "coffee_with_cheesecake"), Jump("buy_item1")]
+        
 #Naudas pelnīšana, mazgājot grīdu
 default william_pos = 1000  #Sākum pozīcija pa x asi
 default time_passed = 0     #Laiks, kas pagājis kopš mijiedarbības sākuma
