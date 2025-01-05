@@ -1161,3 +1161,143 @@ label invite_cafe2:
         n "Go to the candy shop, to earn some money."
 
     return
+
+label beach:
+    stop music fadeout 1
+    hide screen map_button_sabrina
+    play music beach
+    if next_location == "beach":
+        scene bg beach afternoon with fade
+        show william smile light with dissolve
+        show sabrina smile light at left1 with moveinleft
+        w "Hi."
+        s "Hi."
+        w "It's very beautiful here today."
+        show sabrina happy light
+        s "Yes, it's very beautiful."
+        w "Come here often?"
+        show sabrina smile light
+        s "Yeah, I like to come and watch the sunset here."
+        show william happy light 
+        w "Cool. {w}You know, I brought my camera, let me take some pictures for you."
+        show sabrina happy light
+        s "Wow, yes. I really want!"
+        hide william with moveoutright
+        show sabrina smile at center with move
+        hide screen earned_points
+        
+        #Kameras rāmja paradīšana
+        show camera_frame at center
+        n "Touch the screen to take a picture."
+        
+        #Izsaucam zibspuldzes efektu
+        play sound camera_flash
+        show camera_frame with flash
+        w "Let's make more."
+        show sabrina happy
+        play sound camera_flash
+        show camera_frame with flash
+        w "Wow, the pictures are very beautiful."
+        s "Show me."
+        hide camera_frame
+        hide sabrina with moveoutright
+        
+        #Izsaucam ekrānu ar foto attēliem
+        call screen photos
+        
+    else:
+        show screen map_button_sabrina
+        w "I don't have to go to the beach right now."
+
+    return
+    
+
+label after_photo:
+    show william smile light with dissolve
+    show sabrina happy light at left1 with dissolve
+    show screen earned_points with dissolve
+    s "Very nice photos! I like them."
+    $ point_sabrina += 1
+    $ girl = point_sabrina
+    play sound plus_point
+    n "Sabrina liked the pictures +1 point."
+    show william happy light
+    w "Yeah, I really like it too."
+    s "Now I need to go. {w}I have plans."
+    menu:
+        "Offer to accompany Sabrina?"
+                
+        "Yes":
+            call yes1 from _call_yes1
+                
+        "No":
+            call no1 from _call_no1
+    
+    w "Okey, see you tommorow then."
+    m "Bye."
+    hide sabrina with moveoutleft
+    show screen map_button_sabrina
+    $ current_location = "beach"
+    $ next_location = "home2"
+    n "Go home."
+    
+    return
+
+
+label yes1:
+    show william smile light
+    w "Can I accompany you?"
+    show sabrina smile light
+    m "Thanks, but my friend gonna pick me up."
+    $ point_sabrina += 1
+    $ girl = point_sabrina
+    play sound plus_point
+    n "+1 point for wanting to accompany Sabrina."
+
+    return
+    
+    
+label no1:
+    show william smile light
+    show sabrina smile light
+    
+    return
+    
+label invite_beach2:
+    w "I will invite her to the beach walk."
+    t "Thank you class. That's all for today."
+    w "Nice, lessons is over."
+    stop music fadeout 1
+    scene bg corridor day with fade
+    play music corridor
+    show william uniform smile with dissolve
+    w "I need to find Sabrina, to invite her."
+    hide william with moveoutleft
+    stop music fadeout 1
+    scene bg courtyard day with fade
+    play music courtyard
+    show sabrina uniform smile light at left1 with dissolve
+    show william uniform smile light with moveinleft
+    w "Hi, Sabrina!"
+    s "Hi."
+    w "Maybe you want to go with me to the beach?"
+    s "Hm, when?"
+    w "We can go tomorrow at evening."
+    s "Okey, let's go."
+    $ point_sabrina += 1
+    $ girl = point_sabrina
+    play sound plus_point
+    n "Sabrina's pleased that you decided to take her to her favourite place +1 point."
+    show william uniform happy light
+    w "Cool, see you tomorrow then."
+    s "See you tomorrow."
+    hide sabrina with moveoutright
+    w "I'm happy, that Sabrina agree."
+    show william uniform smile
+    w "Now I can go home."
+    show screen map_button_sabrina
+    $ current_location = "school2"
+    $ next_location = "home2"
+    n "Go home."
+    
+    return
