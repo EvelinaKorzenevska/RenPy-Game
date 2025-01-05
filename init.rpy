@@ -600,3 +600,50 @@ screen result:
         align .68, .5
         textbutton "Yes" action[Hide("result"), Show("choice_menu")]
         textbutton "No" action[Hide("result"), Jump("end")]
+        
+#Sakopt visus atkritumus
+#Atkritumu definēšana
+image rubbish1 = "images/rubbish/apple.png"
+image rubbish2 = "images/rubbish/bottle.png"
+image rubbish3 = "images/rubbish/candy.png"
+image rubbish4 = "images/rubbish/mud.png"
+image rubbish5 = "images/rubbish/paper.png"
+
+#Atkritumu redzamība
+default rubbish1_visible = True
+default rubbish2_visible = True
+default rubbish3_visible = True
+default rubbish4_visible = True
+default rubbish5_visible = True
+
+#Ekrāns ar atkritumiem
+screen clean_rubbish:
+    if rubbish1_visible:
+        imagebutton:
+            xpos 1578 ypos 829
+            idle "images/rubbish/apple.png"
+            action [SetVariable("rubbish1_visible", False), Hide("rubbish1")]  #elementa slēpšana
+
+    if rubbish2_visible:
+        imagebutton:
+            xpos 849 ypos 877
+            idle "images/rubbish/bottle.png"
+            action [SetVariable("rubbish2_visible", False), Hide("rubbish2")]
+    
+    if rubbish3_visible:
+        imagebutton:
+            xpos 1219 ypos 886
+            idle "images/rubbish/candy.png"
+            action [SetVariable("rubbish3_visible", False), Hide("rubbish3")]
+    
+    if rubbish4_visible:
+        imagebutton:
+            xpos 522 ypos 469
+            idle "images/rubbish/mud.png"
+            action [SetVariable("rubbish4_visible", False), Hide("rubbish4")]
+    
+    if rubbish5_visible:
+        imagebutton:
+            xpos 78 ypos 732
+            idle "images/rubbish/paper.png"
+            action [SetVariable("rubbish5_visible", False), Hide("rubbish5")]

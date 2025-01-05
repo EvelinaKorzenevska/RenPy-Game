@@ -784,3 +784,98 @@ label learn_poem:
         jump learn_poem
 
     return
+    
+label candy_shop2:
+    stop music fadeout 1
+    hide screen map_button_sabrina
+    play music main
+    if next_location == "candy_shop2":
+        $ candy_shop2_visited += 1
+        if candy_shop2_visited == 1:
+            scene bg candy shop day with fade
+            show mother work smile light at left1 with dissolve
+            show william smile light at right1 with moveinright
+            mum "Hi, [char_name]! {w}What are you doing here?"
+            w "Hi, mum. I need to earn some money. {w}Maybe, I can do something at your work to earn."
+            mum "Hmm, We've got a very dirty outside, if you clean it up, you make money."
+            w "Nice!"
+            hide mother with moveoutleft
+            w "I need to go outside"
+            hide william with moveoutright
+            scene bg candy shop entrance day with fade
+            n "Clean rubbish and dirt by pressing on it."
+            while rubbish1_visible or rubbish2_visible or rubbish3_visible or rubbish4_visible or rubbish5_visible:
+                show screen clean_rubbish
+                $ renpy.pause(0.1) 
+            hide screen clean_rubbish    
+            n "You cleaned up all the rubbish."
+            scene bg candy shop day with fade
+            show mother work smile light at left1 with dissolve
+            show william smile light at right1 with moveinright
+            w "I did it."
+            mum "Nice! Here is your $30."
+            play sound money
+            $ money += 30
+            n "You have earned $30."
+            show william happy light
+            w "Thank you!"
+            if invitation_choice == "invite_cafe":
+                show william sad
+                w "Oh. Finally I can go home."
+                show screen map_button_sabrina
+                $ previous_location = "candy_shop2"
+                $ current_location = "candy_shop2"
+                $ next_location = "home2"
+                n "Go home."
+            elif invitation_choice == "invite_concert":
+                w "Now I can go to buy a tickets."
+                show screen map_button_sabrina
+                $ previous_location = "candy_shop2"
+                $ current_location = "candy_shop2"
+                $ next_location = "concert_hall"
+                n "Go to the concert hall."
+        
+        elif candy_shop2_visited == 2:
+            scene bg candy shop day with fade
+            show mother work smile light at left1 with dissolve
+            show william smile light at right1 with moveinright
+            w "Hi, mum."
+            mum "Hi, [char_name]! {w}Out of money again?"
+            show william sad light
+            w "Yes. I really need to make some money."
+            mum "All right. {w}You need help sorting out the goods. There's a lot of people today, we can't keep up."
+            show william happy
+            w "Okey."
+            hide william with moveoutright
+            n "...[char_name] is sorting out the goods..."
+            show william smile light with moveinright
+            w "I'm done!"
+            m "Thank you. Take your $50."
+            $ money += 50
+            play sound money
+            n "You have earned $50."
+            show william happy light
+            w "Thanks, Mum!"
+            mum "Bye, bye."
+            hide mother with moveoutleft
+            if invitation_choice == "invite_cafe":
+                show william sad
+                w "Oh. Finally I can go home."
+                show screen map_button_sabrina
+                $ previous_location = "candy_shop2"
+                $ current_location = "candy_shop2"
+                $ next_location = "home2"
+                n "Go home."
+            elif invitation_choice == "invite_concert":
+                w "Now I can go to buy a tickets."
+                show screen map_button_sabrina
+                $ previous_location = "candy_shop2"
+                $ current_location = "candy_shop2"
+                $ next_location = "concert_hall"
+                n "Go to the concert hall."
+            
+    else:
+        show screen map_button_sabrina
+        w "I don't have to go to candy shop right now."
+        
+    return
