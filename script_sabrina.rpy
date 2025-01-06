@@ -1,11 +1,10 @@
 #Izvēloties Sabrinu, spēle pārlec uz sabrina label bloku  
 label sabrina:
-    hide screen mia_butt
-    hide screen monica_butt
+    hide screen mia_button
     show william uniform smile at right1 with dissolve 
     w "Sabrina is like an enigma, always a little mysterious. Sometimes it seems like she's looking at me, and sometimes it's like she doesn't notice me at all. She's a fun person to be with, but I don't know what she'd think if I asked her out."
     w "But still, it's worth a try!"
-    hide screen sabrina_butt with dissolve
+    hide screen sabrina_button with dissolve
     
     stop music fadeout 1
     scene bg courtyard day with fade
