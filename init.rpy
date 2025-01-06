@@ -3,6 +3,55 @@ define w = Character("[char_name]", color="#80b3ff", callback=name_callback, cb_
 define t = Character("Teacher", color="#ff0000", callback=name_callback, cb_name="teacher")
 define m = Character("Mia", color="#ff99dd", callback=name_callback, cb_name="mia")
 define s = Character("Sabrina", color="#ff99dd", callback=name_callback, cb_name="sabrina")
+define sal = Character("Salesperson", color="#ff0000", callback=name_callback, cb_name="salesperson")
+define mum = Character("Mum", color="#ff0000", callback=name_callback, cb_name="mother")
+
+#Autora vārdi režīmā nvl - dialoglodziņš parādās pa visu ekrānu
+define a = Character(None, kind=nvl)
+
+#Autora vārdu definēšana ar slīprakstu un pelēko krāsu. Autoram runājot, nerunājošie varoņi neizcēlās
+define n = Character(callback=name_callback, cb_name=None, what_italic=True, what_color="#888888")
+
+#Varoņa attēla deklarēšana, lai runājošs varonis izceltos
+image william uniform confused light = At('william uniform confused', sprite_highlight('william'))
+image william uniform confused2 light = At('william uniform confused2', sprite_highlight('william'))
+image william uniform smile light = At('william uniform smile', sprite_highlight('william'))
+image william uniform happy light = At('william uniform happy', sprite_highlight('william'))
+image william uniform suprized light = At('william uniform suprized', sprite_highlight('william'))
+image william uniform sad light = At('william uniform sad', sprite_highlight('william'))
+image william smile light = At('william smile', sprite_highlight('william'))
+image william happy light = At('william happy', sprite_highlight('william'))
+image william sad light = At('william sad', sprite_highlight('william'))
+image william confused light = At('william confused', sprite_highlight('william'))
+
+image teacher sad light = At('teacher sad', sprite_highlight('teacher'))
+image teacher smile light = At('teacher smile', sprite_highlight('teacher'))
+
+image mia uniform smile light = At('mia uniform smile', sprite_highlight('mia'))
+image mia uniform suprized light = At('mia uniform suprized', sprite_highlight('mia'))
+image mia uniform sad light = At('mia uniform sad', sprite_highlight('mia'))
+image mia uniform happy light = At('mia uniform happy', sprite_highlight('mia'))
+image mia smile light = At('mia smile', sprite_highlight('mia'))
+image mia happy light = At('mia happy', sprite_highlight('mia'))
+image mia confused light = At('mia confused', sprite_highlight('mia'))
+image mia shy light = At('mia shy', sprite_highlight('mia'))
+image mia sad light = At('mia sad', sprite_highlight('mia'))
+image mia smile p2 light = At('mia smile p2', sprite_highlight('mia'))
+
+image sabrina uniform sad light = At('sabrina uniform sad', sprite_highlight('sabrina'))
+image sabrina uniform suprized light = At('sabrina uniform suprized', sprite_highlight('sabrina'))
+image sabrina uniform smile light = At('sabrina uniform smile', sprite_highlight('sabrina'))
+image sabrina unhappy light = At('sabrina unhappy', sprite_highlight('sabrina'))
+image sabrina sad light = At('sabrina sad', sprite_highlight('sabrina'))
+image sabrina laught light = At('sabrina laught', sprite_highlight('sabrina'))
+image sabrina smile light = At('sabrina smile', sprite_highlight('sabrina'))
+image sabrina confused light = At('sabrina confused', sprite_highlight('sabrina'))
+image sabrina happy light = At('sabrina happy', sprite_highlight('sabrina'))
+
+image salesperson light = At('salesperson', sprite_highlight('salesperson'))
+image salesperson form light = At('salesperson form', sprite_highlight('salesperson'))
+
+image mother work smile light = At('mother work smile', sprite_highlight('mother'))
 
 #Mūzika un skaņas efekti
 define audio.start = "music/start_music.mp3"
