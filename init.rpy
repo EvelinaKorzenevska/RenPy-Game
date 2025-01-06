@@ -510,23 +510,6 @@ screen map_button_sabrina:
         idle "images/map/map_icon.png"
         hover "images/map/map_icon_hover.png"
         action Show("map2")
-        
-#Informācijas logs
-screen information:
-        frame:
-            padding(10,10)
-            xalign 0.1
-            yalign 0.05
-            xsize 400
-            vbox:
-                xsize 380
-                text "{color=#80b3ff}HINT{/color}" xalign 0.5
-                null height 15
-                text "Read the dialogue carefully, it can help you score more points for further action." size 30
-                null height 10
-                text "Focus on the answers, there is a hidden logic that you need to grasp." size 30
-                null height 15
-                textbutton "CLOSE" action Hide("information") xalign 0.5
 
 #Ekrāns telefona zvanam
 screen phone_call(caller_name, caller_image, call_status):
