@@ -528,6 +528,32 @@ screen information:
                 null height 15
                 textbutton "CLOSE" action Hide("information") xalign 0.5
 
+#Ekrāns telefona zvanam
+screen phone_call(caller_name, caller_image, call_status):
+    #Telefona fons un izvietojums
+    frame:
+        xalign 0.3
+        yalign 0.3
+        xsize 400
+        ysize 850
+        background "images/sms_chat/phone_background.png"
+        foreground "images/sms_chat/phone_foreground.png"
+
+    #Abonenta vārda parādīšana
+    vbox:
+        xpos 0.30
+        ypos 0.15
+        text "[caller_name]" size 40 color "#FFFFFF" xmaximum 250
+
+    #Abonenta attēls
+    add caller_image xpos 0.29 ypos 0.25
+
+    #Pašreizeja zvana statuss
+    vbox:
+        xalign 0.33
+        yalign 0.6
+        text "[call_status]" size 30 color "#FFFFFF" xmaximum 250
+
 #Spēlētāja nauda
 default money = 30
 screen money_display:
