@@ -576,6 +576,21 @@ screen shop_menu:
         hover "images/shop/coffee_cheesecake_hover.png"
         action [SetVariable("coffee_with_cheesecake", coffee_with_cheesecake + 1), SetVariable("item", "coffee_with_cheesecake"), Jump("buy_item1")]
         
+#Ikonas
+image tea1_icon = "images/icons/tea1.png"
+image tea2_icon = "images/icons/tea2.png"
+image coffee1_icon = "images/icons/coffee1.png"
+image coffee2_icon = "images/icons/coffee2.png"
+image honeycake1_icon = "images/icons/cake1.png"
+image honeycake2_icon = "images/icons/cake2.png"
+image cheesecake1_icon = "images/icons/cheesecake1.png"
+image cheesecake2_icon = "images/icons/cheesecake2.png"
+image taxi_icon = "images/icons/taxi.png"
+image popcorn = "images/icons/popcorn.png"
+image book = "images/icons/book.png"
+image flowers = "images/icons/flowers.png"
+image chamomile = "images/icons/chamomile.png"
+
 #Naudas pelnīšana, mazgājot grīdu
 default william_pos = 1000  #Sākum pozīcija pa x asi
 default time_passed = 0     #Laiks, kas pagājis kopš mijiedarbības sākuma
