@@ -243,6 +243,23 @@ screen earned_points:
             #Attēli pilnai un tukšai joslai
             bottom_bar Frame("gui/bar/bottom1.png", 10, 10)
             top_bar Frame("gui/bar/top1.png", 10, 10)
+            
+#Informācijas logs
+screen information:
+        frame:
+            padding(10,10)
+            xalign 0.1
+            yalign 0.05
+            xsize 400
+            vbox:
+                xsize 380
+                text "{color=#80b3ff}HINT{/color}" xalign 0.5
+                null height 15
+                text "Read the dialogue carefully, it can help you score more points for further action." size 30
+                null height 10
+                text "Focus on the answers, there is a hidden logic that you need to grasp." size 30
+                null height 15
+                textbutton "CLOSE" action Hide("information") xalign 0.5
 
 #Dienu skaitītājs
 default days_left = 7
