@@ -131,6 +131,22 @@ screen info_panel_sabrina:
                 text "{color=#80b3ff}BRIEF DESCRIPTION{/color}: {size=30}Style icon, follows fashion trends, always looks flawless, self-loved."
                 null height 15
                 textbutton "CLOSE" action Hide("info_panel_sabrina") xalign 0.5
+#Pogas veidošana. Noklikškinot uz meiteni, parādas informācijas logs par viņu
+screen mia_button:
+    imagebutton:
+        xalign 0.05
+        yalign 1.1
+        idle "images/button/mia_idle.png"
+        hover "images/button/mia_hover.png"
+        action Show("info_panel_mia")             
+
+screen sabrina_button:
+    imagebutton:
+        xalign 0.4
+        yalign 1.1
+        idle "images/button/sabrina_idle.png"
+        hover "images/button/sabrina_hover.png"
+        action Show("info_panel_sabrina")
 
 #SMS tērzētava
 default messages = [] #Saraksts ziņu glabāšanai
