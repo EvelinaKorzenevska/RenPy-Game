@@ -1421,3 +1421,32 @@ label buy_gaga:
     n "You spent $30 for 2 tickets."
 
     return
+    
+label buy_flowers2:
+    if money >= 5:
+        show william pijama smile
+        w "Yeah, I'll stop by the florist before school and buy some flowers."
+        hide william with moveoutright
+        show william uniform smile with moveinright
+        show screen map_button_sabrina
+        $ current_location = "home2"
+        $ next_location = "city_centre2"
+        n "Go to the city centre to buy a flowers."
+        
+    else:
+        jump not_buy_flowers
+    
+    return
+
+    
+label not_buy_flowers:
+    w "No, I won't buy flowers, I don't have enough money."
+    w "All right, it's time to get out."
+    hide william with moveoutright
+    show william uniform smile with moveinright
+    show screen map_button_sabrina
+    $ current_location = "home2"
+    $ next_location = "school2"
+    n "Go to school."
+    
+    return
