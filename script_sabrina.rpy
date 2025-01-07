@@ -878,6 +878,185 @@ label candy_shop2:
         w "I don't have to go to candy shop right now."
         
     return
+
+label school2:
+    stop music fadeout 1
+    hide screen map_button_sabrina
+    if next_location == "school2":
+        $ school2_visited += 1
+        if school2_visited == 1:
+            scene bg classroom day with fade
+            play music classroom
+            show teacher smile light
+            t "Hi, everyone! Today you were supposed to learn a poem and tell it to us in class today."
+            t "I can't wait to hear what you guys have to say."
+            if action_choiсe == "games" or action_choiсe == "none":
+                w "Oh, my God, I completely forgot to learn the poem. {w}I hope I don't get called in today."
+                t "Who wants to start? {w}Oh, [char_name] hasn't been to the blackboard in a while. Let's hear for him."
+                w "Oh, no."
+                show teacher light at left1 with move
+                show william uniform smile light with moveinleft
+                t "You can start."
+                show william uniform confused light
+                w "I'm not ready."
+                show teacher sad light
+                t "Very bad, sit down - 2."
+                hide william with moveoutleft
+            elif action_choiсe == "homework":
+                w "It's a good thing I decided to do my homework yesterday instead of playing games."
+                t "Who wants to start? {w}Oh, [char_name] hasn't been to the blackboard in a while. Let's hear for him."
+                w "Definitely good."
+                show teacher light at left1 with move
+                show william uniform smile light with moveinleft
+                t "You can start."
+                n "[char_name] tells a poem."
+                t "Wow, [char_name], this time you're even prepared."
+                w "Yes."
+                t "Good, sit down - 10."
+                hide william with moveoutleft
+            t "Lesson is over, thank you all."
+            stop music fadeout 1
+            scene bg corridor day with fade
+            play music corridor
+            show sabrina uniform smile light at left1 with dissolve
+            show william uniform smile light with moveinright
+            if action_choiсe == "games" or action_choiсe == "none":
+                s "I didn't learn the poem either, I was just lucky I didn't get called up."
+                show william uniform sad light
+                w "You're really lucky, now I have to find time to fix 2."
+            elif action_choiсe == "homework":
+                s "Wow, you even learned a poem."
+                show william uniform happy light
+                w "Yeah, there was nothing to do yesterday."
+                s "That's cool, well done."
+                w "Thanks."
+            show william uniform smile light
+            if invitation_choice == "invite_beach":
+                w "Look, if you couldn't go to the beach yesterday, why don't we go today?"
+            elif invitation_choice == "invite_cafe":
+                w "Look, if you couldn't go to the cafe yesterday, maybe we could go tonight?"
+            s "Yeah, we can go tonight."
+            show william uniform happy light
+            w "Nice! See you tonight."
+            s "See you."
+            hide sabrina uniform smile with moveoutleft
+            show screen map_button_sabrina
+            $ current_location = "school2"
+            $ next_location = "home2"
+            n "Lessons is over. Go home."
+        elif school2_visited == 2:
+            scene bg classroom day with fade
+            play music classroom
+            show teacher smile light
+            n "...Teacher introduces a new topic..."
+            n "[char_name] is not listening, he's more concerned with where to invite Sabrina next."
+            if invitation_choice == "invite_beach":
+                menu:
+                    "Where invite Sabrina next?"
+                        
+                    "To the cafe":
+                        $ invitation_choice = "invite_cafe"
+                        jump invite_cafe2
+                        
+                    "To a concert":
+                        $ invitation_choice = "invite_concert"
+                        jump invite_concert
+            
+            elif invitation_choice == "invite_cafe":
+                menu:
+                    "Where invite Sabrina next?"
+                        
+                    "To the beach":
+                        $ invitation_choice = "invite_beach"
+                        jump invite_beach2
+                        
+                    "To a concert":
+                        $ invitation_choice = "invite_concert"
+                        jump invite_concert
+
+        elif school2_visited == 3:
+            scene bg classroom day with fade
+            play music classroom
+            show teacher smile light
+            t "Hi, everyone! We're gonna make up for bad grades today."
+            if action_choiсe == "games" or action_choiсe == "none":
+                t "[char_name] are you ready?"
+                w "Yes."
+                show teacher light at left1 with move
+                show william uniform smile light with moveinleft
+                t "You can start."
+                n "[char_name] tells a poem."
+                t "Wow, [char_name], this time you're even prepared."
+                w "Yes."
+                t "Good, sit down - 10."
+                hide william with moveoutleft
+            elif action_choiсe == "homework":
+                n "...Classmates recite poems to..."
+            t "Lesson is over, thank you all."
+            stop music fadeout 1
+            scene bg courtyard day with fade
+            play music courtyard
+            show william uniform smile
+            w "I need to find Sabrina."
+            hide william with moveoutleft
+            stop music fadeout 1
+            scene bg corridor day with fade 
+            play music corridor
+            show sabrina uniform smile light at left1 with dissolve
+            show william uniform smile light with moveinleft
+            w "Hey!"
+            s "Hi."
+            if invitation_choice == "invite_beach":
+                w "We're going to the beach today, right?"
+                s "Yes."
+                show william uniform happy light
+                w "Nice! See you."
+                s "See you."
+            elif invitation_choice == "invite_cafe":
+                w "We're going to the cafe today, right?"
+                s "Yes."
+                show william uniform happy light
+                w "Nice! See you."
+                s "See you."
+            elif invitation_choice == "invite_concert":
+                w "I bought tickets to the concert."
+                s "Good. What artist?"
+                if concert_ticket_choise == "buy_grande":
+                    w "Ariana Grande."
+                    show sabrina uniform suprized light
+                    s "Wow. This is my favourite artist!"
+                    show william uniform happy light
+                    w "Yea. I know. You told about that."
+                    show sabrina uniform smile light
+                    s "Cool, I can't wait!"
+                    play sound plus_point
+                    $ point_sabrina += 2
+                    $ girl = point_sabrina
+                    n "Sabrina is happy, that you bought tickets to see her favorite artist +2 points."
+                    w "I'm glad you liked it. {w}So, see you today!"
+                    s "See you."
+                elif concert_ticket_choise == "buy_gaga":
+                    w "Lady Gaga."
+                    show sabrina uniform suprized light
+                    s "Okey"
+                    show william uniform confused light
+                    w "You like her?"
+                    s "This is not my favourite artist, but it's okay."
+                    show william smile light
+                    w "Then good. {w}So, see you today!"
+                    s "See you."
+            hide sabrina with moveoutright
+            show screen map_button_sabrina
+            $ current_location = "school2"
+            $ next_location = "home2"
+            n "Go home."
+
+    else:
+        show screen map_button_sabrina
+        w "I don't have to go to school right now."
+    
+    return
+
     
 label cafe:
     hide screen map_button_sabrina
