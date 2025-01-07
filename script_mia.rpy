@@ -1,11 +1,10 @@
 #Izvēloties Mīju, spēle pārlec uz mia label bloku    
 label mia:
-    hide screen monica_butt
-    hide screen sabrina_butt
+    hide screen sabrina_button
     show william uniform smile with dissolve
     w "Mia is so smart, she gets excellent grades all the time. She's nice to talk to, interested in everything. But I'm afraid she has bigger plans than just dancing with a boy in her class."
     w "But still, it's worth a try!"
-    hide screen mia_butt with dissolve
+    hide screen mia_button with dissolve
     
     scene bg courtyard day with fade
     show william uniform smile with dissolve

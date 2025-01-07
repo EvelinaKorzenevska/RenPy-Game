@@ -3,6 +3,55 @@ define w = Character("[char_name]", color="#80b3ff", callback=name_callback, cb_
 define t = Character("Teacher", color="#ff0000", callback=name_callback, cb_name="teacher")
 define m = Character("Mia", color="#ff99dd", callback=name_callback, cb_name="mia")
 define s = Character("Sabrina", color="#ff99dd", callback=name_callback, cb_name="sabrina")
+define sal = Character("Salesperson", color="#ff0000", callback=name_callback, cb_name="salesperson")
+define mum = Character("Mum", color="#ff0000", callback=name_callback, cb_name="mother")
+
+#Autora vārdi režīmā nvl - dialoglodziņš parādās pa visu ekrānu
+define a = Character(None, kind=nvl)
+
+#Autora vārdu definēšana ar slīprakstu un pelēko krāsu. Autoram runājot, nerunājošie varoņi neizcēlās
+define n = Character(callback=name_callback, cb_name=None, what_italic=True, what_color="#888888")
+
+#Varoņa attēla deklarēšana, lai runājošs varonis izceltos
+image william uniform confused light = At('william uniform confused', sprite_highlight('william'))
+image william uniform confused2 light = At('william uniform confused2', sprite_highlight('william'))
+image william uniform smile light = At('william uniform smile', sprite_highlight('william'))
+image william uniform happy light = At('william uniform happy', sprite_highlight('william'))
+image william uniform suprized light = At('william uniform suprized', sprite_highlight('william'))
+image william uniform sad light = At('william uniform sad', sprite_highlight('william'))
+image william smile light = At('william smile', sprite_highlight('william'))
+image william happy light = At('william happy', sprite_highlight('william'))
+image william sad light = At('william sad', sprite_highlight('william'))
+image william confused light = At('william confused', sprite_highlight('william'))
+
+image teacher sad light = At('teacher sad', sprite_highlight('teacher'))
+image teacher smile light = At('teacher smile', sprite_highlight('teacher'))
+
+image mia uniform smile light = At('mia uniform smile', sprite_highlight('mia'))
+image mia uniform suprized light = At('mia uniform suprized', sprite_highlight('mia'))
+image mia uniform sad light = At('mia uniform sad', sprite_highlight('mia'))
+image mia uniform happy light = At('mia uniform happy', sprite_highlight('mia'))
+image mia smile light = At('mia smile', sprite_highlight('mia'))
+image mia happy light = At('mia happy', sprite_highlight('mia'))
+image mia confused light = At('mia confused', sprite_highlight('mia'))
+image mia shy light = At('mia shy', sprite_highlight('mia'))
+image mia sad light = At('mia sad', sprite_highlight('mia'))
+image mia smile p2 light = At('mia smile p2', sprite_highlight('mia'))
+
+image sabrina uniform sad light = At('sabrina uniform sad', sprite_highlight('sabrina'))
+image sabrina uniform suprized light = At('sabrina uniform suprized', sprite_highlight('sabrina'))
+image sabrina uniform smile light = At('sabrina uniform smile', sprite_highlight('sabrina'))
+image sabrina unhappy light = At('sabrina unhappy', sprite_highlight('sabrina'))
+image sabrina sad light = At('sabrina sad', sprite_highlight('sabrina'))
+image sabrina laught light = At('sabrina laught', sprite_highlight('sabrina'))
+image sabrina smile light = At('sabrina smile', sprite_highlight('sabrina'))
+image sabrina confused light = At('sabrina confused', sprite_highlight('sabrina'))
+image sabrina happy light = At('sabrina happy', sprite_highlight('sabrina'))
+
+image salesperson light = At('salesperson', sprite_highlight('salesperson'))
+image salesperson form light = At('salesperson form', sprite_highlight('salesperson'))
+
+image mother work smile light = At('mother work smile', sprite_highlight('mother'))
 
 #Mūzika un skaņas efekti
 define audio.start = "music/start_music.mp3"
@@ -82,6 +131,22 @@ screen info_panel_sabrina:
                 text "{color=#80b3ff}BRIEF DESCRIPTION{/color}: {size=30}Style icon, follows fashion trends, always looks flawless, self-loved."
                 null height 15
                 textbutton "CLOSE" action Hide("info_panel_sabrina") xalign 0.5
+#Pogas veidošana. Noklikškinot uz meiteni, parādas informācijas logs par viņu
+screen mia_button:
+    imagebutton:
+        xalign 0.05
+        yalign 1.1
+        idle "images/button/mia_idle.png"
+        hover "images/button/mia_hover.png"
+        action Show("info_panel_mia")             
+
+screen sabrina_button:
+    imagebutton:
+        xalign 0.4
+        yalign 1.1
+        idle "images/button/sabrina_idle.png"
+        hover "images/button/sabrina_hover.png"
+        action Show("info_panel_sabrina")
 
 #SMS tērzētava
 default messages = [] #Saraksts ziņu glabāšanai
@@ -178,6 +243,23 @@ screen earned_points:
             #Attēli pilnai un tukšai joslai
             bottom_bar Frame("gui/bar/bottom1.png", 10, 10)
             top_bar Frame("gui/bar/top1.png", 10, 10)
+            
+#Informācijas logs
+screen information:
+        frame:
+            padding(10,10)
+            xalign 0.1
+            yalign 0.05
+            xsize 400
+            vbox:
+                xsize 380
+                text "{color=#80b3ff}HINT{/color}" xalign 0.5
+                null height 15
+                text "Read the dialogue carefully, it can help you score more points for further action." size 30
+                null height 10
+                text "Focus on the answers, there is a hidden logic that you need to grasp." size 30
+                null height 15
+                textbutton "CLOSE" action Hide("information") xalign 0.5
 
 #Dienu skaitītājs
 default days_left = 7
@@ -312,22 +394,148 @@ screen map_button:
         hover "images/map/map_icon_hover.png"
         action Show("map")
         
-#Informācijas logs
-screen information:
-        frame:
-            padding(10,10)
-            xalign 0.1
-            yalign 0.05
-            xsize 400
-            vbox:
-                xsize 380
-                text "{color=#80b3ff}HINT{/color}" xalign 0.5
-                null height 15
-                text "Read the dialogue carefully, it can help you score more points for further action." size 30
-                null height 10
-                text "Focus on the answers, there is a hidden logic that you need to grasp." size 30
-                null height 15
-                textbutton "CLOSE" action Hide("information") xalign 0.5
+#Mainīgie, kas uzskaita, cik reizes spēlētājs ir “apmeklējis” noteikto vietu
+default home2_visited = 0
+default school2_visited = 0
+default candy_shop2_visited = 0
+default concert_hall_visited = 0
+
+#Kartes ekrāns, izvēloties Sabrinu
+screen map2:
+    modal True
+    #Ekrāns tiks parādīts virs visiem pārējiem ekrāniem. Numurs norāda, kādā secībā ekrāns tiek parādīts (zorder 0 ir vistālākais ekrāns)
+    zorder 100
+    fixed:
+        xsize 1920 ysize 1119
+        add "images/map/map.gif" align(0.5,0.5) #Centrēšana
+    fixed:
+        xsize 1920 ysize 1119
+        
+        #Lokāciju definēšana
+        button:
+            xpos 634 ypos 348
+            xsize 90 ysize 90
+            idle_background "images/map/house.png"
+            hover_foreground "images/map/house_hover.png"    
+            tooltip "{b}Home{/b}{p}{i}{size=20}Click to go home{/i}"
+            action Hide("map2"), Jump("home2")
+            #Poga nav aktīva, ja spēlētājs atrodas tajā vietā
+            sensitive current_location != "home2"
+        
+        button:
+            xpos 798 ypos 528
+            xsize 80 ysize 80
+            idle_background "images/map/school.png"
+            hover_foreground "images/map/school_hover.png"
+            tooltip "{b}School{/b}{p}{i}{size=20}Click to go to school{/i}"
+            action Hide("map2"), Jump("school2")
+            sensitive current_location != "school2"
+            
+        button:
+            xpos 646 ypos 675
+            xsize 80 ysize 80
+            idle_background "images/map/park.png"
+            hover_foreground "images/map/park_hover.png"
+            tooltip "{b}Park{/b}{p}{i}{size=20}Click to go to the park{/i}"
+            action Hide("map2"), Jump("park2")
+            sensitive current_location != "park2"
+            
+        button:
+            xpos 480 ypos 552
+            xsize 80 ysize 80
+            idle_background "images/map/house_mia.png"
+            hover_foreground "images/map/house_mia_hover.png"
+            tooltip "{b}Sabrina's house{/b}{p}{i}{size=20}Click to go to Sabrina's house{/i}"
+            action Hide("map2"), Jump("house_sabrina")
+            sensitive current_location != "house_sabrina"
+        
+        button:
+            xpos 1266 ypos 297
+            xsize 80 ysize 80
+            idle_background "images/map/candy_shop.png"
+            hover_foreground "images/map/candy_shop_hover.png"
+            tooltip "{b}Candy shop{/b}{p}{i}{size=20}Click to go the candy shop{/i}"
+            action Hide("map2"), Jump("candy_shop2")
+            sensitive current_location != "candy_shop2"
+        
+        button:
+            xpos 829 ypos 297
+            xsize 80 ysize 80
+            idle_background "images/map/cafe.png"
+            hover_foreground "images/map/cafe_hover.png"
+            tooltip "{b}Cafe{/b}{p}{i}{size=20}Click to go to the cafe{/i}"
+            action Hide("map2"), Jump("cafe")
+            sensitive current_location != "cafe"
+        
+        button:
+            xpos 411 ypos 255
+            xsize 80 ysize 80
+            idle_background "images/map/beach.png"
+            hover_foreground "images/map/beach_hover.png"
+            tooltip "{b}Beach{/b}{p}{i}{size=20}Click to go to the beach{/i}"
+            action Hide("map2"), Jump("beach")
+            sensitive current_location != "beach"
+            
+        button:
+            xpos 1231 ypos 531
+            xsize 80 ysize 80
+            idle_background "images/map/concert_hall.png"
+            hover_foreground "images/map/concert_hall_hover.png"
+            tooltip "{b}Concert hall{/b}{p}{i}{size=20}Click to go to the concert hall{/i}"
+            action Hide("map2"), Jump("concert_hall")
+            sensitive current_location != "concert_hall"
+        
+        button:
+            xpos 928 ypos 400
+            xsize 80 ysize 80
+            idle_background "images/map/city_centre.png"
+            hover_foreground "images/map/city_centre_hover.png"
+            tooltip "{b}City Centre{/b}{p}{i}{size=20}Click to go there{/i}"
+            action Hide("map2"), Jump("city_centre2")
+            sensitive current_location != "city_centre2"
+            
+    $ tooltip = GetTooltip()
+    if tooltip:
+        fixed:
+            xpos 30 ypos 732
+            xsize 350 ysize 236
+            add "images/map/textbox.png"
+            text "{color=#000000}[tooltip]{/color}" align(0.5,0.5) text_align 0.5
+
+#Poga, kartes atvēršanai
+screen map_button_sabrina:
+    modal True
+    imagebutton:
+        xpos 210 ypos 0
+        idle "images/map/map_icon.png"
+        hover "images/map/map_icon_hover.png"
+        action Show("map2")
+
+#Ekrāns telefona zvanam
+screen phone_call(caller_name, caller_image, call_status):
+    #Telefona fons un izvietojums
+    frame:
+        xalign 0.3
+        yalign 0.3
+        xsize 400
+        ysize 850
+        background "images/sms_chat/phone_background.png"
+        foreground "images/sms_chat/phone_foreground.png"
+
+    #Abonenta vārda parādīšana
+    vbox:
+        xpos 0.30
+        ypos 0.15
+        text "[caller_name]" size 40 color "#FFFFFF" xmaximum 250
+
+    #Abonenta attēls
+    add caller_image xpos 0.29 ypos 0.25
+
+    #Pašreizeja zvana statuss
+    vbox:
+        xalign 0.33
+        yalign 0.6
+        text "[call_status]" size 30 color "#FFFFFF" xmaximum 250
 
 #Spēlētāja nauda
 default money = 30
@@ -359,6 +567,38 @@ screen shop_menu_drink:
         idle "images/shop/coffee.png"
         hover "images/shop/coffee_hover.png"
         action [SetVariable("coffee", coffee + 1), SetVariable("item", "coffee"), Jump("buy_item")]
+
+#Ekrāns ar precēm
+screen shop_menu:
+    image "images/shop/MENU.png" xpos 354 ypos 292
+    imagebutton:
+        xpos 320
+        ypos 486
+        idle "images/shop/coffee_honeycake.png"
+        hover "images/shop/coffee_honeycake_hover.png"
+        action [SetVariable("coffee_with_honeycake", coffee_with_honeycake + 1), SetVariable("item", "coffee_with_honeycake"), Jump("buy_item1")]
+
+    imagebutton:
+        xpos 540
+        ypos 486
+        idle "images/shop/coffee_cheesecake.png"
+        hover "images/shop/coffee_cheesecake_hover.png"
+        action [SetVariable("coffee_with_cheesecake", coffee_with_cheesecake + 1), SetVariable("item", "coffee_with_cheesecake"), Jump("buy_item1")]
+        
+#Ikonas
+image tea1_icon = "images/icons/tea1.png"
+image tea2_icon = "images/icons/tea2.png"
+image coffee1_icon = "images/icons/coffee1.png"
+image coffee2_icon = "images/icons/coffee2.png"
+image honeycake1_icon = "images/icons/cake1.png"
+image honeycake2_icon = "images/icons/cake2.png"
+image cheesecake1_icon = "images/icons/cheesecake1.png"
+image cheesecake2_icon = "images/icons/cheesecake2.png"
+image taxi_icon = "images/icons/taxi.png"
+image popcorn = "images/icons/popcorn.png"
+image book = "images/icons/book.png"
+image flowers = "images/icons/flowers.png"
+image chamomile = "images/icons/chamomile.png"
 
 #Naudas pelnīšana, mazgājot grīdu
 default william_pos = 1000  #Sākum pozīcija pa x asi
@@ -418,3 +658,193 @@ default question_choice = "none"
 
 #Mainīgais, kas glabā informāciju par spēlētāja izdarīto lēmumu - kādu darbību veikt
 default action_choiсe = "none"
+
+#Dzejoļa paradīšana
+screen poem:
+    text "{i}Hold fast to dreams, for if dreams die\nLife is a broken-winged bird, that cannot fly.\nHold fast to dreams, for when dreams go\nLife is a barren field, frozen with snow.{/i}":
+        xalign 0.5
+        yalign 0.25
+        size 30
+
+#Datora poga, lai sākt spēlēt spēli
+screen computer_button:
+    modal True
+    imagebutton:
+        xpos 396 ypos 499
+        idle "images/icons/computer.png"
+        hover "images/icons/computer_hover.png"
+        action Show("choice_menu")
+
+#Ekrāns ar spēles sākumu
+screen choice_menu:
+    add "images/bg/computer.png"
+    modal True
+    text "Rock-paper-scissors game, make a choice." align .5, .6
+    imagebutton:
+        xalign 0.35
+        yalign 0.4
+        idle "images/icons/rock_idle.png"
+        hover "images/icons/rock_hover.png"
+        action [SetVariable("player_choice", "rock"), Hide("choice_menu"), Show("result")]
+
+    imagebutton:
+        xalign 0.5
+        yalign 0.4
+        idle "images/icons/scissors_idle.png"
+        hover "images/icons/scissors_hover.png"
+        action [SetVariable("player_choice", "scissors"), Hide("choice_menu"), Show("result")]
+
+    imagebutton:
+        xalign 0.65
+        yalign 0.4
+        idle "images/icons/paper_idle.png"
+        hover "images/icons/paper_hover.png"
+        action [SetVariable("player_choice", "paper"), Hide("choice_menu"), Show("result")]
+
+#Ekrāns ar spēles rezultātu
+screen result:
+    add "images/bg/computer.png"
+    modal True
+    python:
+        computer_choice = renpy.random.choice(["rock", "scissors", "paper"])
+    
+    if player_choice == computer_choice:
+        text "It's a tie!" align .5, .45
+    elif (player_choice == "rock" and computer_choice == "scissors") or (player_choice == "scissors" and computer_choice == "paper") or (player_choice == "paper" and computer_choice == "rock"):
+        text "You win!" align .5, .45
+    else:
+        text "You lose!" align .5, .45
+
+    add "/images/icons/" + player_choice + "_idle.png" align .5, .3
+    add "/images/icons/" + computer_choice + "_idle.png" align .5, .6
+    
+    text "Play it again?" align .7, .45
+    hbox:
+        align .68, .5
+        textbutton "Yes" action[Hide("result"), Show("choice_menu")]
+        textbutton "No" action[Hide("result"), Jump("end")]
+        
+#Sakopt visus atkritumus
+#Atkritumu definēšana
+image rubbish1 = "images/rubbish/apple.png"
+image rubbish2 = "images/rubbish/bottle.png"
+image rubbish3 = "images/rubbish/candy.png"
+image rubbish4 = "images/rubbish/mud.png"
+image rubbish5 = "images/rubbish/paper.png"
+
+#Atkritumu redzamība
+default rubbish1_visible = True
+default rubbish2_visible = True
+default rubbish3_visible = True
+default rubbish4_visible = True
+default rubbish5_visible = True
+
+#Ekrāns ar atkritumiem
+screen clean_rubbish:
+    if rubbish1_visible:
+        imagebutton:
+            xpos 1578 ypos 829
+            idle "images/rubbish/apple.png"
+            action [SetVariable("rubbish1_visible", False), Hide("rubbish1")]  #elementa slēpšana
+
+    if rubbish2_visible:
+        imagebutton:
+            xpos 849 ypos 877
+            idle "images/rubbish/bottle.png"
+            action [SetVariable("rubbish2_visible", False), Hide("rubbish2")]
+    
+    if rubbish3_visible:
+        imagebutton:
+            xpos 1219 ypos 886
+            idle "images/rubbish/candy.png"
+            action [SetVariable("rubbish3_visible", False), Hide("rubbish3")]
+    
+    if rubbish4_visible:
+        imagebutton:
+            xpos 522 ypos 469
+            idle "images/rubbish/mud.png"
+            action [SetVariable("rubbish4_visible", False), Hide("rubbish4")]
+    
+    if rubbish5_visible:
+        imagebutton:
+            xpos 78 ypos 732
+            idle "images/rubbish/paper.png"
+            action [SetVariable("rubbish5_visible", False), Hide("rubbish5")]
+            
+#Foto efekts
+image camera_frame = "images/icons/camera_frame.png"  #Kameras rāmis
+
+#Zibspuldzes efekts (Parametri - zibspuldzes vienmērīgas pārejas laiks, pēc cik sekundēm tiek parādīta vienkrāsa, pēc cik sekundēm tiek parādīts dialoga teksts.)
+define flash = Fade(.25, 0, .75, color="#ffffff") 
+
+#Ekrāns ar bildēm
+init python:
+    photos = ["images/icons/foto1.png", "images/icons/foto2.png"] #Fotoattēlu saraksts
+    current_photo_index = 0 #Mainīgais pašreizējam fotoattēla indeksam
+
+screen photos():
+    modal True
+    add photos[current_photo_index] align .5, .2 #Parādīt pašreizējo fotoattēlu ar indeksu 0
+    
+    #Pogas veidošana
+    vbox:
+        align (0.5, 0.75)
+        hbox:
+            #Pāriet pie iepriekšējas bildes
+            if current_photo_index > 0:
+                textbutton "Previous" action[SetVariable("current_photo_index", current_photo_index - 1), Function(renpy.restart_interaction)] #Funkcija, kas ļauj restartēt pašreizējo ekrānu, liekot to pārzīmēt no jauna
+            
+            #Pāriet pie nākamās bildes
+            if current_photo_index < len(photos) - 1: #Pārbauda, vai pašreizējais fotoattēla indekss ir pēdējais sarakstā
+                textbutton "Next" action [SetVariable("current_photo_index", current_photo_index + 1), Function(renpy.restart_interaction)]
+            
+            textbutton "Close" action Hide("photos"), Jump("after_photo")
+
+#Nopirkt koncerta biļeti
+default concert_ticket_choise = "none"
+
+#Ekrāns ar piedavātajām biļetēm
+screen buy_concert_ticket():
+        imagebutton:
+            xpos 153 ypos 84
+            idle "images/icons/ticket_grande.png"
+            hover "images/icons/ticket_grande_hover.png"
+            action Call("buy_grande")
+
+        imagebutton:
+            xpos 153 ypos 385
+            idle "images/icons/ticket_gaga.png"
+            hover "images/icons/ticket_gaga_hover.png"
+            action Call("buy_gaga")
+
+#Galerija    
+init python:
+    g = Gallery() #g - galerijas mainīgais
+    g.locked_button = "images/gallery/close.png"
+    g.button("end_sabrina")
+    g.condition("persistent.end_sabrina")
+    g.image("poster_sabrina")
+    
+    g.button("end_mia")
+    g.condition("persistent.end_mia")
+    g.image("poster_mia")
+    
+    g.button("end_alone")
+    g.condition("persistent.end_alone")
+    g.image("poster_alone")
+    
+screen gallery():
+    tag menu #Atvērts tikai viens ekrāns ar birku menu
+    add "gui/game_menu.png"
+    
+    grid 2 2:
+        xfill True #Izvieto visus plakātus ar vienmērīgu atstarpi.
+        yfill True
+        
+        #Poga
+        add g.make_button("end_sabrina", "preview_sabrina", xalign=0.5, yalign=0.5, hover_border="images/gallery/frame.png")
+        add g.make_button("end_mia", "preview_mia", xalign=0.5, yalign=0.5, hover_border="images/gallery/frame.png")
+        add g.make_button("end_alone", "preview_alone", xalign=1.4, yalign=0.4, hover_border="images/gallery/frame.png")
+        
+    textbutton "Back" text_color "#000000" text_hover_color "#ffffff"action Return() xalign 0.5 yalign 0.95
+    
