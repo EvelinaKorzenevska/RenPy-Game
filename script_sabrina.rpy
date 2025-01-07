@@ -1450,3 +1450,43 @@ label not_buy_flowers:
     n "Go to school."
     
     return
+
+label city_centre2:
+    stop music fadeout 1
+    hide screen map_button_sabrina
+    play music shopping_center
+    if next_location == "city_centre2":
+        scene bg shopping center day with fade
+        show william uniform smile with dissolve
+        w "Here I am."
+        hide william with moveoutleft
+        scene bg flower shop day with fade
+        show william uniform smile light with moveinright
+        show salesperson form light at left1 with moveinleft
+        sal "Hello, can I help you?"
+        w "Hello, I need a flowers."
+        sal "What kind of flowers you need?"
+        w "Chamomiles."
+        sal "Okey."
+        hide salesperson form with moveoutleft
+        show salesperson form at left1 with moveinleft
+        show chamomile at Transform(xpos=232, ypos=654) with dissolve
+        sal "You like these?"
+        w "Nice. I take them."
+        sal "It costs $5."
+        $ money -= 5
+        play sound money
+        n "You spent $5."
+        show chamomile at Transform(xpos=838, ypos=574)
+        w "Thank you!"
+        show screen map_button_sabrina
+        $ current_location = "city_centre2"
+        $ next_location = "school2"
+        $ previous_location = "city_centre2"
+        n "Go to school."
+
+    else:
+        show screen map_button
+        w "I don't have to go to the city centre right now."
+    
+    return
