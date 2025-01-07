@@ -1050,6 +1050,70 @@ label school2:
             $ current_location = "school2"
             $ next_location = "home2"
             n "Go home."
+            elif school2_visited == 4:
+            play music courtyard
+            hide screen money_display
+            scene bg courtyard2 day with fade
+            show sabrina uniform smile light with dissolve
+            show william uniform smile light at right1 with moveinright
+            if previous_location == "city_centre2":
+                show chamomile at Transform(xpos=1300, ypos=574) with dissolve
+                w "Hi, Sabrina. This is for you!"
+                show sabrina uniform suprized light
+                show chamomile at Transform(xpos=950, ypos=270) with dissolve
+                s "Hi! Thank you!"
+                s "You're the one who gave me my favourite flowers."
+                play sound plus_point
+                $ point_sabrina += 1
+                $ girl = point_sabrina
+                n "Sabrina is happy, that you bought her favorite flowers +1 point."
+                show william uniform happy light
+                w "Nice!"
+                show william uniform confused light
+                w "I actually came to ask you something."
+                show sabrina uniform smile light
+                w "Today is the day to tell the teacher who's going to prom with who."
+                w "I've been trying to get to know you better, so I have a question for you."
+                w "Will you go to the prom with me?"
+                hide chamomile
+            else:
+                w "Hi. How are you?"
+                s "Hi. Good, you?"
+                show william uniform confused light
+                w "Good too. {w}I actually came to ask you something."
+                s "About what?"
+                w "Today is the day to tell the teacher who's going to prom with who."
+                w "I've been trying to get to know you better, so I have a question for you."
+                w "Will you go to the prom with me?"
+            
+            if point_sabrina >=10:
+                s "I noticed that you tried very hard to surprise me every time, and most importantly, you remembered everything I told you, which means that you are really interested in me."
+                s "I've become interested in you lately too, as you're not like all my other fansю"
+                s "So my answer is yes, I'll go to the prom with you!"
+                show william uniform happy light
+                w "Wow, I'm really excited."
+                play sound victory
+                n "Congratulations! You made it through the game."
+                
+                window hide
+                scene poster_sabrina with fade
+                $ persistent.end_sabrina = True
+                n "The end - [char_name] went to the prom with Sabrina."
+                
+            else:
+                m "I noticed how you tried to surprise me, but there were moments where you acted strange, a bit like everyone else and it was repulsive."
+                show sabrina uniform sad light
+                m "And I get the impression that you don't care who you go with as long as you go and don't look like an outcast."
+                m "So unfortunately my answer is no, I'm not going to the prom with you."
+                show william uniform sad light
+                w "Very unfortunate, but thanks for the chance."
+                play sound loss
+                n "You couldn't get through the game, try again next time."
+                
+                window hide
+                scene poster_alone with fade
+                $ persistent.end_alone = True
+                n "The end - [char_name] went to the prom alone."
 
     else:
         show screen map_button_sabrina

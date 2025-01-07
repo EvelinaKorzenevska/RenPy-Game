@@ -816,3 +816,35 @@ screen buy_concert_ticket():
             idle "images/icons/ticket_gaga.png"
             hover "images/icons/ticket_gaga_hover.png"
             action Call("buy_gaga")
+
+#Galerija    
+init python:
+    g = Gallery() #g - galerijas mainīgais
+    g.locked_button = "images/gallery/close.png"
+    g.button("end_sabrina")
+    g.condition("persistent.end_sabrina")
+    g.image("poster_sabrina")
+    
+    g.button("end_mia")
+    g.condition("persistent.end_mia")
+    g.image("poster_mia")
+    
+    g.button("end_alone")
+    g.condition("persistent.end_alone")
+    g.image("poster_alone")
+    
+screen gallery():
+    tag menu #Atvērts tikai viens ekrāns ar birku menu
+    add "gui/game_menu.png"
+    
+    grid 2 2:
+        xfill True #Izvieto visus plakātus ar vienmērīgu atstarpi.
+        yfill True
+        
+        #Poga
+        add g.make_button("end_sabrina", "preview_sabrina", xalign=0.5, yalign=0.5, hover_border="images/gallery/frame.png")
+        add g.make_button("end_mia", "preview_mia", xalign=0.5, yalign=0.5, hover_border="images/gallery/frame.png")
+        add g.make_button("end_alone", "preview_alone", xalign=1.4, yalign=0.4, hover_border="images/gallery/frame.png")
+        
+    textbutton "Back" text_color "#000000" text_hover_color "#ffffff"action Return() xalign 0.5 yalign 0.95
+    
